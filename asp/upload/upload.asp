@@ -3,7 +3,7 @@
 <% Response.CodePage=65001 %>
 <% Response.Charset="UTF-8" %>
 <!--#include file="UpLoad_Class.asp"-->
-<!--#include file="JSON_2.0.4.asp"-->
+<!--#include file="UpLoad_JSON_2.0.4.asp"-->
 <%
 
 ' KindEditor ASP
