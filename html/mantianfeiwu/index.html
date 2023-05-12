@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>支付页面</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<meta name="viewport" content="width=1300">
+	<link rel="stylesheet" href="./source/alert.css">
+	<link rel="stylesheet" href="./source/style.css" type="text/css">
+</head>
+<body id="PageTop" style="zoom: 1;">
+	<div class="wrap">
+		<header class="Header clear">
+			<nav class="Nav"><ul>
+				<li><a class="smoothing" data-page-slug="mission" href="https://bk.iuczy.cn/" target="_blank"><span>优博客</span><div class="Nav__line"></div></a></li>
+				<li><a class="smoothing" data-page-slug="action" href="https://12o2.com/" target="_blank"><span>优机场</span><div class="Nav__line"></div></a></li>
+				<li><a class="smoothing alert-api-button alert-btn1" data-page-slug="solution" href="https://app.iuczy.com/pc/#"><span>优破解</span><div class="Nav__line"></div></a></li>
+				<li><a class="smoothing" data-page-slug="company" href="http://zf.iuczy.com/" target="_blank"><span>优发卡</span><div class="Nav__line"></div></a></li>
+				<li><a class="smoothing" data-page-slug="company" href="http://dy.iu5c.com/" target="_blank"><span>优影视</span><div class="Nav__line"></div></a></li>
+				<li><a class="smoothing alert-api-button alert-btn2" data-page-slug="recruit" href="https://app.iuczy.com/pc/#"><span>关于优</span><div class="Nav__line"></div></a></li>
+			</ul></nav>
+		</header>
+		<div class="Container">
+			<div class="Container__inner">
+			<!-- =====================
+				FirstBlock
+			=====================-->
+			<article id="JsFirstBlock" class="FirstBlock"><div class="FirstBlock__inner">
+				<h2 class="FirstBlock__logo"><span class="" style="left: 0px;"><img src="./source/logo.png" alt="JAZY GROUP" width="545" height="44"></span></h2>
+				<ul class="FirstBlock__items">
+					<li class="FirstBlock__item"><div class="FirstBlock__item-inner" style="left: 0px;">
+						<h3><img src="./source/mission.png" alt="MISSION" width="123" height="20"></h3>
+						<p>点击进入优创博客<br>每日更新教程资源<br>装机玩机教程</p>
+						<a class="smoothing" href="https://bk.iuczy.cn/" target="_blank">DETAIL</a><!-- data-page-slug="mission" --> 
+					</div></li>
+					<li class="FirstBlock__item"><div class="FirstBlock__item-inner" style="left: 0px;">
+						<h3><img src="./source/action.png" alt="IDENTITIY" width="140" height="20"></h3>
+						<p>点击进入优机场<br>所有流量不限时<br>1080P线路起飞</p>
+						<a class="smoothing" href="https://qmxcssr.com/" target="_blank">DETAIL</a><!--  data-page-slug="action"  -->
+					</div></li>
+					<li class="FirstBlock__item"><div class="FirstBlock__item-inner" style="left: 0px;">
+						<h3><img src="./source/solution.png" alt="SOLUTION" width="153" height="20"></h3>
+						<p>点击进入优发卡<br>百种全网最低商品<br>打造网络最低发卡网</p>
+						<a class="smoothing" href="http://zf.iuczy.com/" target="_blank">DETAIL</a>
+		<!-- 				<a class="smoothing js-page-transition" data-page-slug="solution" href="http://zf.iuczy.com">DETAIL</a>	 -->			
+					</div></li>
+				</ul>
+			</div>
+			</article>
+		</div>
+	</div>
+	<footer class="Footer clear">
+		<p class="Footer__copy"><small><img src="./source/copyright.png" height="10" width="111" alt="© JAZY GROUP"></small></p>
+	</footer>
+</div>
+<script src="./source/jquery-1.9.0.min.js"></script>
+<script src="./source/alert.js"></script>
+<script src="./source/jquery.min.js"></script>
+<script src="./source/velocity.min.js"></script>
+<script src="./source/velocity.ui.min.js"></script>
+<script src="./source/easeljs-0.7.1.min.js"></script>
+<script src="./source/tweenjs-0.6.0.min.js"></script>
+
+<canvas id="jsCanvas" class="canvas" width="1536" height="760"></canvas>
+<script src="./source/jazy19.min.js"></script>
+
+<script>  
+		M.dialog1 = jqueryAlert({
+			'content' : '请使用手机访问安装破解版软件',
+			'closeTime' : 2000
+		})
+</script>  
+<script>    
+var M = {
+	}
+	$(document).delegate(".alert-btn1",'click',function(){
+		if(M.dialog1){
+			return M.dialog1.show();
+		}
+		M.dialog1 = jqueryAlert({
+			'content' : '请使用手机访问安装破解版软件',
+			'closeTime' : 2000
+		})
+	})
+	$(document).delegate(".alert-btn2",'click',function(){
+		if(M.dialog1){
+			return M.dialog1.show();
+		}
+		M.dialog1 = jqueryAlert({
+			'content' : '小人物 不值一提',
+			'closeTime' : 2000
+		})
+      
+	})	  
+</script>
+ </body></html>
