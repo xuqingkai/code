@@ -3,21 +3,21 @@ $file_path='./callback.txt';
 $contents = '';
 $queryString = $_SERVER['QUERY_STRING'];
 if($queryString=='view'){
-	if(is_file($file_path)){ $contents = file_get_contents($file_path); }
+    if(is_file($file_path)){ $contents = file_get_contents($file_path); }
 }else if($queryString=='clear'){
     if(is_file($file_path)){ unlink($file_path); }
     header('location:?view');exit();
 }else{
-	$post_data = file_get_contents('php://input');
-	$date_time = date('Y-m-d H:i:s');
-	$referer = $_SERVER['HTTP_REFERER']??'';
-	$url = $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING'];
-	$result = $date_time."\r\n".$referer."\r\n".$url."\r\n".$post_data;
-	$result .="\r\n-----------------------------------------------------------------------\r\n";
-	$file=fopen($file_path,"a");
-	fwrite($file, $result);
-	fclose($file);
-	exit('POST_DATA:'.$post_data);	
+    $post_data = file_get_contents('php://input');
+    $date_time = date('Y-m-d H:i:s');
+    $referer = $_SERVER['HTTP_REFERER']??'';
+    $url = $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING'];
+    $result = $date_time."\r\n".$referer."\r\n".$url."\r\n".$post_data;
+    $result .="\r\n-----------------------------------------------------------------------\r\n";
+    $file=fopen($file_path,"a");
+    fwrite($file, $result);
+    fclose($file);
+    exit($post_data);	
 }?>
 <!DOCTYPE html>
 <html lang="zh">
