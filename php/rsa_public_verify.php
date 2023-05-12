@@ -1,4 +1,4 @@
-//RSA公钥验签
+<?php //RSA公钥验签
 $data='';
 $base64_sign='';
 
