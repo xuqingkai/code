@@ -1,3 +1,4 @@
+<?php
 //RSA私钥签名
 $data='';
 $rsa_private_key = '';
