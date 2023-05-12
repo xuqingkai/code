@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>getLocation - alipayjsapi</title>
+    <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.inc.min.js"></script>
+
+</head>
+<body>
+<p>错误信息：<span id="error"></span><p>
+<p>地球经度：<span id="longitude"></span><p>
+<p>地球纬度：<span id="latitude"></span><p>
+<p>地区代码：<span id="adCode"></span><p>
+<script>
+	var option = {'type': 0, 'bizType': "1234"};
+	ap.getLocation(option, function (res) {
+			window.alert('222');
+		var location_str = JSON.stringify(res, undefined, '  ');
+		var locationJson = eval('(' + location_str + ')');
+		var error = locationJson.error;
+		if (error) {
+			document.querySelector('#error').innerHTML = locationJson.errorMessage;
+		} else {
+			window.alert(locationJson.adCode);
+			document.querySelector('#longitude').innerHTML = locationJson.longitude;
+			document.querySelector('#latitude').innerHTML = locationJson.latitude;
+			document.querySelector('#adCode').innerHTML = locationJson.adCode;
+		}
+	});
+</script>
+</body>
+</html>
