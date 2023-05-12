@@ -1,20 +1,21 @@
 <?php
-$api_url='http://send.yyg618.com/chargebank.aspx';
-$api_id='';
-$api_key='';
+$laozhao['gateway']='http://send.yyg618.com/chargebank.aspx';
+$laozhao['id']='';
+$laozhao['key']='';
 
-$data['parter']=$api_id;
-$data['type']='992';
-$data['value']='1';
-$data['orderid']=date('YmdHis').rand(10000,99999);
-$data['callbackurl']='http://cs.yyg618.com/';
+$laozhao['data']=array();
+$laozhao['data']['parter']=$laozhao['id'];
+$laozhao['data']['type']='992';
+$laozhao['data']['value']='1';
+$laozhao['data']['orderid']=date('YmdHis').rand(10000,99999);
+$laozhao['data']['callbackurl']='http://cs.yyg618.com/';
 
-$str=''; foreach($data as $key=>$val){ $str.='&'.$key.'='.$val; }
-$str=substr($str,1).$api_key;
-$data['sign']=md5($str);
+$laozhao['str']=''; foreach($laozhao['data'] as $key=>$val){ $laozhao['str'].='&'.$key.'='.$val; }
+$laozhao['str']=substr($laozhao['str'],1).$laozhao['key'];
+$laozhao['data']['sign']=md5($laozhao['str']);
 
-$str=''; foreach($data as $key=>$val){ $str.='&'.$key.'='.urlencode($val); }
+$laozhao['query']=''; foreach($laozhao['data'] as $key=>$val){ $laozhao['query'].='&'.$key.'='.urlencode($val); }
+$laozhao['url']=$laozhao['gateway'].'?'.substr($laozhao['query'],1);
 
-$api_url=$api_url.'?'.substr($str,1);
-//exit('<a href="'.$api_url.'">'.$api_url.'</a>');
-header('location: '.$api_url); exit();
+//exit('<a href="'.$laozhao['url'].'">'.$laozhao['url'].'</a>');
+header('location: '.$laozhao['url']); exit();
