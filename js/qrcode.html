@@ -13,15 +13,15 @@
     <div id="qrcode"></div>
     <script type="text/javascript">
       var qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: "http://jindo.dev.naver.com/collie",
+        text: "0212105678"+String.fromCharCode(13)+"测试\t男\t28"+String.fromCharCode(13)+"370808195505051234",
         width: 128,
         height: 128,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
       });
-      qrcode.makeCode("0212105678|测试|男|28|370808195505051234");
-      $('#text').change(function(){
+
+        $('#text').change(function(){
       qrcode.makeCode($(this).val());
       });
     </script>
