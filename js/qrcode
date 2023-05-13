@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    <script src="./jquery-1.12.4.min.js" type="text/javascript"></script>
+    <input type="text" id="text" style="width:99%" />
+    <div id="qrcode"></div>
+    <script type="text/javascript">
+      var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: "http://jindo.dev.naver.com/collie",
+        width: 128,
+        height: 128,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+      qrcode.makecode("0212105678|测试|男|28|370808195505051234");
+      $('#text').change(function(){
+      qrcode.makecode($(this).val());
+      });
+    </script>
+</body>
+</html>
