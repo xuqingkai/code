@@ -8,7 +8,7 @@ CREATE TABLE [xqk_test](
 	[password] [nvarchar](33) NULL,
 	[nick_name] [nvarchar](44) NULL,
 	[sex] [int] NULL,
-	[age] [int] NOT NULL,
+	[age] [int] NOT NULL DEFAULT 0,
 	[balance] [decimal](18, 2) NOT NULL,
 	[create_time] [datetime] NULL,
 	[contents] [nvarchar](max) NULL,
@@ -16,6 +16,9 @@ CREATE TABLE [xqk_test](
 );
 -- 唯一键
 ALTER TABLE [xqk_test] ADD CONSTRAINT [IX_xqk_test_user_key] UNIQUE NONCLUSTERED ([user_key] ASC);
+-- 默认值
+ALTER TABLE [xqk_test] ADD  CONSTRAINT [DF_xqk_test_age]  DEFAULT ((0)) FOR [age]
+
 -- 数据
 INSERT INTO [xqk_test] ([test_key], [user_name], [user_salt], [password], [nick_name], [sex], [age], [balance], [create_time], [contents]) VALUES ('64648485.21232f297a57a5a743894a0e4a801fc3', 'admin', 'dcba14f8c8a43118ecb99dd7ba493ea0', '60383678942fb047356f3afa058de5ff', '管理员', 1, 55, 51098.88, '2023-05-17T15:38:44', '管理员拥有无限的权利');
 INSERT [xqk_test] ([test_key], [user_name], [user_salt], [password], [nick_name], [sex], [age], [balance], [create_time], [contents]) VALUES ('64648485.b33aed8f3134996703dc39f9a7c95783', 'agent', '93bb7044b3513e30e29b2cbf973ea32c', '186c42b43f7ac5cba3bfa6ae7653803b', '代理商', 1, 44, 4875.23, '2023-05-17 15:38:45', '代理商下游有很多用户');
