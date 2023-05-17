@@ -15,7 +15,7 @@ CREATE TABLE [xqk_test](
     CONSTRAINT [PK_xqk_test_id] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 -- 唯一键
-ALTER TABLE [xqk_test] ADD CONSTRAINT [IX_xqk_test_user_key] UNIQUE NONCLUSTERED ([user_key] ASC);
+ALTER TABLE [xqk_test] ADD CONSTRAINT [IX_xqk_test_user_key] UNIQUE NONCLUSTERED ([test_key] ASC);
 -- 默认值
 ALTER TABLE [xqk_test] ADD  CONSTRAINT [DF_xqk_test_age]  DEFAULT ((0)) FOR [age]
 
