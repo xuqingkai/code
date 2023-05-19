@@ -14,6 +14,7 @@
     </style>
 </head>
 <body>
+    <%=DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")%>
     <script src="./js/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
     </script>
