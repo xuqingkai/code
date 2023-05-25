@@ -18,7 +18,7 @@ if($queryString=='view'){
     fwrite($file, $result);
     fclose($file);
     $path_info=$_SERVER['PATH_INFO'];
-	exit($path_info?substr($path_info,1):"success");	
+    exit($path_info?substr($path_info,1):"success");	
 }?>
 <!DOCTYPE html>
 <html lang="zh">
