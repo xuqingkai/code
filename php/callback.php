@@ -17,7 +17,8 @@ if($queryString=='view'){
     $file=fopen($file_path,"a");
     fwrite($file, $result);
     fclose($file);
-    exit($post_data);	
+    $path_info=$_SERVER['PATH_INFO'];
+	exit($path_info?substr($path_info,1):"success");	
 }?>
 <!DOCTYPE html>
 <html lang="zh">
