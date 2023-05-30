@@ -4,4 +4,8 @@ $root_host = 'http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_
 $request_url = 'http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 //执行文件URL
 $file_url = 'http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"];
+//网站根目录
+$_SERVER["DOCUMENT_ROOT"];
+//执行文件
+$_SERVER["SCRIPT_FILENAME"]
 ?>
