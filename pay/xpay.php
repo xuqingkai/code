@@ -55,7 +55,7 @@ function xpay_root_url($url){
 	if(strtolower(substr($url,0,7)) != 'http://' && strtolower(substr($url,0,8)) != 'https://'){
 		$root_url = 'http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"];
 		if(substr($url,0,1) != '/'){
-			$root_url.=$_SERVER['SCRIPT_NAME'];
+			$root_url.=$_SERVER['REQUEST_URI'];
 			$root_url=substr($root_url, 0, strrpos($root_url, '/') + 1);
 		}
 		$url=$root_url.$url;
