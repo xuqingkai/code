@@ -8,7 +8,7 @@ public System.Xml.XmlNode ParseXml(string strXml, string root = null)
 {
     if(string.IsNullOrEmpty(root)){
         root = strXml.Trim().Substring(strXml.LastIndexOf("/") + 1);
-        root = root.Substring(0, strXml.IndexOf(">")-1);
+        root = root.Substring(0, root.IndexOf(">")-1);
     }
     System.Xml.XmlDocument xmlDocument = new System.Xml.XmlDocument();
     System.Xml.XmlNode xml = null;
