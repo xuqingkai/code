@@ -8,6 +8,9 @@ for (int i = 0; i < files.Count; i++)
 {
     string field = files.AllKeys[i];
     System.Web.HttpPostedFile file = files[i];
-    Response.Write(field + ": "+file.FileName+"<br />");	
+    Response.Write(field + ": "+file.FileName+"<br />");
+    string fileExt = System.IO.Path.GetExtension(file.FileName).ToLower() + "";
+    string filePath = System.DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + i + "_" + field + fileExt;
+	file.SaveAs(System.Web.HttpContext.Current.Server.MapPath(filePath));
 }
 %>
