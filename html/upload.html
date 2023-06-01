@@ -24,7 +24,7 @@
         file2[]:<input type="file" name="file2[]" ><br />
     <input type="submit" value="上传" />
     </form>
-    <p>设置提交地址为：<input type="text" id="action" value="../php/upload.php" /><input type="button" value="设置" onclick="set()" /></p>
+    <p>设置提交地址为：<input type="text" id="action" /><input type="button" value="设置" onclick="set()" /></p>
     <script type="text/javascript">
     document.getElementById('action').value=document.getElementById('form').getAttribute('action');
     function set(){
