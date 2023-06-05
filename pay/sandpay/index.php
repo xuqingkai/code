@@ -1,4 +1,7 @@
 <?php
+//接口文档
+//https://open.sandpay.com.cn/product/detail/43305/43671/43673
+
 //商户编号
 $sandpay['mid'] = '';
 //平台公钥
