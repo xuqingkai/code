@@ -34,7 +34,7 @@ $sandpay['data']['data']['body']['payAccLimit']='alipay';//支付宝ALIPAY，微
 $sandpay['data']['data']['body']['orderCode']=date('YmdHis').rand(1000,9999);
 $sandpay['data']['data']['body']['totalAmount']=substr('000000000000'.number_format("1.00", 2, '', ''),-12);
 $sandpay['data']['data']['body']['subject']='subject';
-$sandpay['data']['data']['body']['notifyUrl']=$_SERVER["REQUEST_SCHEME"].'://'.$_SERVER["HTTP_HOST"];
+$sandpay['data']['data']['body']['notifyUrl']='http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"];
 //$sandpay['data']['data']['body']['notifyUrl']='http://okqq.eu.org/callback/';
 $sandpay['json']=json_encode($sandpay['data']['data']);
 
