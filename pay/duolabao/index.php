@@ -24,7 +24,7 @@ $duolabao['data']['requestNum']=date('YmdHis').rand(1000,9999);
 $duolabao['data']['amount']=number_format("1.00", 2, '.', '');
 $duolabao['data']['source']='API';
 $duolabao['data']['callbackUrl']='http://okqq.eu.org/callback/';
-$duolabao['data']['completeUrl']=$_SERVER["REQUEST_SCHEME"].'://'.$_SERVER["HTTP_HOST"];
+$duolabao['data']['completeUrl']='http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"];
 $duolabao['request']=json_encode($duolabao['data']);
 
 $duolabao['timestamp']=time().'000';
