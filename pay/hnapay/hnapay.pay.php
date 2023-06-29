@@ -70,7 +70,10 @@ $hnapay['response_string']=file_get_contents($hnapay['host'].$hnapay['path'], fa
 //{\"charset\":\"1\",\"msgExt\":\"\",\"hnapayOrderId\":\"2023062913943508\",\"resultCode\":\"0000\",\"errorCode\":\"\",\"version\":\"2.1\",\"merOrderNum\":\"202306291711018705\",\"submitTime\":\"20230629171101\",\"qrCodeUrl\":\"https://qrcode.hnapay.com/qrcode.shtml?qrContent=https://bisgateway.hnapay.com/wechat/connect/auth.shtml?bankOrderId=2306291711012625741&sign=9BE4ECFBB278FDB16B81C720C4671907\",\"tranAmt\":\"1.01\",\"signType\":\"1\",\"merId\":\"11000007624\",\"tranCode\":\"WS01\",\"signMsg\":\"05ab7127d44435b4ee43d3b9cb77a3d735c40b1029525d1f33f12073ef2be5198134d774b5fdfa5a9c14392cb504a449ffcd04e45d09ec1c5cba9394cc2968af2f7c2e7fc5b6d8f795fd52c73e2ea0fe938046ccf7d2ab12b9750ab75b255b7090f41739ab6e2d4a4b113359b873953994942f7da74b241fdeab9bd5effd786b\"}
 $hnapay['response']=json_decode($hnapay['response_string'], true);
 if($hnapay['response']['resultCode']=='0000'){
-    exit($hnapay['response']['qrCodeUrl'].'<br /><img src="'.$hnapay['response']['qrCodeUrl'].'" />');
+    $hnapay['qrCodeUrl']=$hnapay['response']['qrCodeUrl'];
+    $hnapay['qrCodeUrl']=explode('qrContent=',$hnapay['qrCodeUrl'])[1];
+    $hnapay['qrCodeUrl']=explode('&sign=',$hnapay['qrCodeUrl'])[0];
+    exit($hnapay['qrCodeUrl'].'<br /><img src="'.$hnapay['response']['qrCodeUrl'].'" />');
 }else{
     exit(json_encode($hnapay));
 }
