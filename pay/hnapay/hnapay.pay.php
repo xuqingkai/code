@@ -1,5 +1,5 @@
 <?php
-
+include_once('./hnapay.config.php');
 
 $hnapay['data']=array();
 $hnapay['data']['version']='2.1';
@@ -59,4 +59,4 @@ if($hnapay['response']['resultCode']=='0000'){
 }else{
     exit(json_encode($hnapay));
 }
-?>
+
