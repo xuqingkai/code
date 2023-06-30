@@ -16,9 +16,12 @@ $hnapay['weChatMchId']='';
 
 //接口付款公钥
 $hnapay['public_key']='';
-
+$hnapay['public_key']=str_replace('-----BEGIN PUBLIC KEY-----','',str_replace('-----END PUBLIC KEY-----','',$hnapay['public_key']));
+$hnapay['public_key']=str_replace("\r",'',str_replace("\n",'',$hnapay['public_key']))
 //商户私钥
 $hnapay['private_key']='';
+$hnapay['private_key']=str_replace('-----BEGIN PRIVATE KEY-----','',str_replace('-----END PRIVATE KEY-----','',$hnapay['private_key']));
+$hnapay['private_key']=str_replace("\r",'',str_replace("\n",'',$hnapay['private_key']))
 
 $hnapay['data']=array();
 $hnapay['data']['version']='2.1';
@@ -48,6 +51,7 @@ $hnapay['sign_str'].='orgCode=['.$hnapay['data']['orgCode'].']';
 $hnapay['sign_str'].='notifyUrl=['.$hnapay['data']['notifyUrl'].']';
 $hnapay['sign_str'].='charset=['.$hnapay['data']['charset'].']';
 $hnapay['sign_str'].='signType=['.$hnapay['data']['signType'].']';
+
 openssl_sign($hnapay['sign_str'], $hnapay['data']['signMsg'], "-----BEGIN RSA PRIVATE KEY-----\n" . wordwrap($hnapay['private_key'], 64, "\n", true) . "\n-----END RSA PRIVATE KEY-----", version_compare(PHP_VERSION,'5.4.8','>=') ? OPENSSL_ALGO_SHA1 : SHA1);
 //$hnapay['data']['signMsg']=base64_encode($hnapay['data']['signMsg']);
 $hnapay['data']['signMsg']=bin2hex($hnapay['data']['signMsg']);
