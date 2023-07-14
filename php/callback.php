@@ -14,10 +14,10 @@ if($queryString=='view'){
     $url = $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING'];
     $result = $date_time."\r\n".$referer."\r\n".$url."\r\n".$post_data;
     $result .="\r\n-----------------------------------------------------------------------\r\n";
-    $file=fopen($file_path,"a");
+    $file = fopen($file_path,"a");
     fwrite($file, $result);
     fclose($file);
-    $path_info=$_SERVER['PATH_INFO'];
+    $path_info = $_SERVER['PATH_INFO'];
     exit($path_info?substr($path_info,1):"success");	
 }?>
 <!DOCTYPE html>
