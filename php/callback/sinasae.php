@@ -1,6 +1,13 @@
 <?php
+//在新浪云上，应用版本（数字1，2，3...）对应于Git的远程分支。
+//也就是说想要Git推送必须切换到类似1，2，3这样的分支才可以
+
+//新浪SAE应用AccessKey
+$accessKey = '';
+
+
 $saeKV = new SaeKV();
-$saeKV->init("o626aqSK3MTryEQWrZ4N");
+$saeKV->init("");
 $contents = $saeKV->get('callback');
 if($contents===false){
     $contents='';
