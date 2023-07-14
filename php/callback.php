@@ -6,7 +6,7 @@ if($queryString=='view'){
     if(is_file($file_path)){ $contents = file_get_contents($file_path); }
 }else if($queryString=='clear'){
     if(is_file($file_path)){ unlink($file_path); }
-    header('location:?view');exit();
+    exit('<script type="text/javascript">window.location.href="?view";</script>');
 }else{
     $post_data = file_get_contents('php://input');
     $date_time = date('Y-m-d H:i:s');
