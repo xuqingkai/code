@@ -1,6 +1,6 @@
 <?php
+include_once('./config.php');
 function http_post($json, $header){
-    
     $service='essbasic';
     $host=$service.'.tencentcloudapi.com';
     $host=$service.'.test.ess.tencent.cn';//测试环境
