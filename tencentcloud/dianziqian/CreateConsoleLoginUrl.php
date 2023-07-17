@@ -1,4 +1,5 @@
 <?php
+include_once('./function.php');
 CreateConsoleLoginUrl();
 function CreateConsoleLoginUrl(){
     $header=array();
