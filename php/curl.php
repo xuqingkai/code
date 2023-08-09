@@ -17,6 +17,7 @@ function http_curl($url,$data,$header){
     $error = curl_error($curl);
     $header = curl_getinfo($curl);
     curl_close($curl);
-    return [$error, $heade, $response];
+    return [$error, $header, $response];
 }
+list($error, $heade, $response)=http_curl();
 
