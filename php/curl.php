@@ -14,7 +14,7 @@ function http_curl($url,$data,$header){
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
     $response = curl_exec($curl);
-    $error = curl_error($curl);
+    $error = ($response === false?curl_error($curl):'');
     $header = curl_getinfo($curl);
     curl_close($curl);
     return [$error, $header, $response];
