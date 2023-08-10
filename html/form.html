@@ -27,5 +27,17 @@
             </tr>
         </table>
     </form>
+    <script type="text/javascript">
+            var form=document.getElementsByTagName('form')[0];
+            var input = form.getElementsByTagName('input');
+            for(var i in input ){
+            	input[i].value=window.localStorage.getItem(input[i].name);
+            }
+            form.onsubmit=function(){
+                    for(var i in input ){
+                        window.localStorage.setItem(input[i].name, input[i].value);
+                    }
+            }
+    </script>
 </body>
 </html>
