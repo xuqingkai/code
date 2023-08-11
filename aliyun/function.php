@@ -1,5 +1,5 @@
 <?php
-//https://help.aliyun.com/document_detail/159973.html?spm=a2c4g.159972.0.0.4f1247c6LXAEM4
+//https://help.aliyun.com/document_detail/159973.html
 include_once('./config.php');
 function aliyun_request($url, $req){
   $req['AccessKeyId']=config('AccessKeyId');
