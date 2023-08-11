@@ -1,6 +1,11 @@
 <?php
 include_once('./config.php');
 function aliyun_request($url, $req){
+  $req['AccessKeyId']=config('AccessKeyId');
+  $req['Timestamp']=str_replace(' ', 'T',date('Y-m-d H:i:s',time()-8*60*60)) . 'Z';
+  $req['SignatureMethod']='HMAC-SHA1';
+	$req['SignatureVersion']='1.0';
+	$req['SignatureNonce']=md5(date('YmdHis').''.rand(10000,99999));
   ksort($req);
   $data = '';
   foreach ($req as $key => $val){
