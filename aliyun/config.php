@@ -1,5 +1,6 @@
 <?php
 function config($key){
-  $config['']='';
+  $config['AccessKeyId']='';
+  $config['AccessKeySecret']='';
   return $config[$key];
 }
