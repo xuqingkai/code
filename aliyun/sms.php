@@ -4,6 +4,7 @@ include_once('./config.php');
 include_once('./function.php');
 function aliyun_sms($PhoneNumbers, $TemplateCode, $TemplateParam, $SignName){
   $req['Action']='SendSms';
+  $req['Format']='JSON';
   $req['Version']='2017-05-25';
   $req['RegionId']='cn-hangzhou';
   if(is_array($PhoneNumbers)){
