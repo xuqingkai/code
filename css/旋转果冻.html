@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>旋转果冻</title>
+<style> 
+#myDIV {
+    margin: 250px;
+    width: 250px;
+    height: 250px;
+    background: orange;
+    position: relative;
+    font-size: 20px;
+	animation: animate 5s linear infinite;
+}
+	
+/* Chrome, Safari, Opera */
+@keyframes animate {
+    0% {
+		transform: rotate(0deg);
+		border-radius: 10% 80% 10% 80% / 80% 10% 80% 10%;
+	  }
+	50% {
+		transform: rotate(180deg);
+		  border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+	  }
+	100%{
+		transform: rotate(360deg);
+		border-radius: 10% 80% 10% 80% / 80% 10% 80% 10%;
+	}
+}
+</style>
+</head>
+<body>
+
+<div id="myDIV"></div>
+
+</body>
+</html>
