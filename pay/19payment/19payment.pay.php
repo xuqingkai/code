@@ -4,8 +4,8 @@ header('Content-Type: text/html; charset=utf-8');
 date_default_timezone_set('PRC');
 $_19payment['config']=[];
 $_19payment['config']['url']='http://post.17payment.com/payment/chargebank';
-$_19payment['config']['parter']='600882748517';
-$_19payment['config']['key']='643321D1CF24D03A8A301FADEB263328';
+$_19payment['config']['parter']='';
+$_19payment['config']['key']='';
 
 
 $_19payment['data']=[];
