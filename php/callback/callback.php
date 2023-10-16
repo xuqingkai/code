@@ -9,18 +9,15 @@ if($queryString=='view'){
     exit('<script type="text/javascript">window.location.href="?view";</script>');
 }else{
     $date_time = date('Y-m-d H:i:s');
-    $referer = $_SERVER['HTTP_REFERER']??'';
     $url = $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING'];
-    $result = $date_time."\r\n".$referer."\r\n".$url."\r\n";
-    foreach($_SERVER as $key=>$val){
-         $result .=  "【".$key."】=".$val."\r\n";
-    }
-    $result .= "\r\n-----------------------------------------------------------------------\r\n";
-    $post_data = file_get_contents('php://input');
-    $result .= $post_data;
-    $result .= "\r\n-----------------------------------------------------------------------\r\n";
+    $text = "\r\n".$date_time."\r\n".$url."\r\n";
+    $text .= "-----------------------------------------------------------------------\r\n";
+    foreach($_SERVER as $key=>$val){ $text .=  "【".$key."】=".$val."\r\n"; }
+    $text .= "-----------------------------------------------------------------------\r\n";
+    $text .= file_get_contents('php://input')."\r\n";
+    $text .= "-----------------------------------------------------------------------\r\n";
     $file = fopen($file_path,"a");
-    fwrite($file, $result);
+    fwrite($file, $text);
     fclose($file);
     $path_info = $_SERVER['PATH_INFO'];
     exit($path_info?substr($path_info,1):"success");	
