@@ -10,12 +10,14 @@ if($queryString=='view'){
 }else{
     $date_time = date('Y-m-d H:i:s');
     $url = $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING'];
-    $text = "\r\n".$date_time."\r\n".$url."\r\n";
+    $text = $date_time."\r\n\r\n";
+    $text .= "-----------------------------------------------------------------------\r\n";
+    $text = $url."\r\n";
     $text .= "-----------------------------------------------------------------------\r\n";
     foreach($_SERVER as $key=>$val){ $text .=  "【".$key."】=".$val."\r\n"; }
     $text .= "-----------------------------------------------------------------------\r\n";
     $text .= file_get_contents('php://input')."\r\n";
-    $text .= "-----------------------------------------------------------------------\r\n";
+    $text .= "=======================================================================\r\n";
     $file = fopen($file_path,"a");
     fwrite($file, $text);
     fclose($file);
