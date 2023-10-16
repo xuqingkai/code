@@ -8,7 +8,8 @@ if($queryString=='view'){
     if(is_file($file_path)){ unlink($file_path); }
     exit('<script type="text/javascript">window.location.href="?view";</script>');
 }else{
-    $text = date('Y-m-d H:i:s')."\r\n\r\n";
+    $text = "\r\n";
+    $text .= date('Y-m-d H:i:s')."\r\n\r\n";
     $text .= "-----------------------------------------------------------------------\r\n";
     $text .= $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING']."\r\n";
     $text .= "-----------------------------------------------------------------------\r\n";
