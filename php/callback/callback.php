@@ -8,11 +8,9 @@ if($queryString=='view'){
     if(is_file($file_path)){ unlink($file_path); }
     exit('<script type="text/javascript">window.location.href="?view";</script>');
 }else{
-    $date_time = date('Y-m-d H:i:s');
-    $url = $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING'];
-    $text = $date_time."\r\n\r\n";
+    $text = date('Y-m-d H:i:s')."\r\n\r\n";
     $text .= "-----------------------------------------------------------------------\r\n";
-    $text = $url."\r\n";
+    $text .= $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING']."\r\n";
     $text .= "-----------------------------------------------------------------------\r\n";
     foreach($_SERVER as $key=>$val){ $text .=  "【".$key."】=".$val."\r\n"; }
     $text .= "-----------------------------------------------------------------------\r\n";
