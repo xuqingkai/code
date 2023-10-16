@@ -8,12 +8,17 @@ if($queryString=='view'){
     if(is_file($file_path)){ unlink($file_path); }
     exit('<script type="text/javascript">window.location.href="?view";</script>');
 }else{
-    $post_data = file_get_contents('php://input');
     $date_time = date('Y-m-d H:i:s');
     $referer = $_SERVER['HTTP_REFERER']??'';
     $url = $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING'];
-    $result = $date_time."\r\n".$referer."\r\n".$url."\r\n".$post_data;
-    $result .="\r\n-----------------------------------------------------------------------\r\n";
+    $result = $date_time."\r\n".$referer."\r\n".$url."\r\n";
+    foreach($_SERVER as $key=>$val){
+         $result .=  "【".$key."】=".$val."\r\n";
+    }
+    $result .= "\r\n-----------------------------------------------------------------------\r\n";
+    $post_data = file_get_contents('php://input');
+    $result .= $post_data;
+    $result .= "\r\n-----------------------------------------------------------------------\r\n";
     $file = fopen($file_path,"a");
     fwrite($file, $result);
     fclose($file);
