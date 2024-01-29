@@ -21,7 +21,8 @@
     async function readbluetooth(){
         try{
             let device = await navigator.bluetooth.requestDevice({    
-                filters: [{namePrefix : 'BP'}]
+                filters: [{namePrefix : 'BP'}],
+                optionalServices: ["0000fff0-0000-1000-8000-00805f9b34fb"]
             });
             device.addEventListener('gattserverdisconnected', (event)=>{
                 let device = event.target;
