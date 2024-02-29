@@ -13,3 +13,8 @@
     Windows Server 2012 R2 Standard   78NJB-CB3WX-GWPCM-VMKG7-94QWW
     
 ```
+
+### 例如：Windows Server 2012 R2 StandardEval
+```
+DISM /online /Set-Edition:ServerStandard /ProductKey:78NJB-CB3WX-GWPCM-VMKG7-94QWW /AcceptEula
+```
