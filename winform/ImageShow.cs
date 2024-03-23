@@ -70,9 +70,9 @@ namespace Client
                         pictureBox.Top += Convert.ToInt32(e.Y - yPos);//设置y坐标.
                     }
                 }
-                catch (Exception dd)
+                catch (Exception exception)
                 {
-                    MessageBox.Show(dd.Message);
+                    MessageBox.Show(exception.Message);
                 }
             });
         }
