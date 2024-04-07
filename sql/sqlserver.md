@@ -1,5 +1,6 @@
 ```
 -- 表
+IF EXISTS (SELECT * FROM sys.objects WHERE name = 'xqk_test') DROP TABLE xqk_test;
 CREATE TABLE [xqk_test](
     [id] [int] IDENTITY(1,1) NOT NULL,
 	[test_key] [nvarchar](50) NOT NULL,
@@ -17,7 +18,7 @@ CREATE TABLE [xqk_test](
 -- 唯一键
 ALTER TABLE [xqk_test] ADD CONSTRAINT [IX_xqk_test_user_key] UNIQUE NONCLUSTERED ([test_key] ASC);
 -- 默认值
-ALTER TABLE [xqk_test] ADD  CONSTRAINT [DF_xqk_test_age]  DEFAULT ((0)) FOR [age]
+-- ALTER TABLE [xqk_test] ADD  CONSTRAINT [DF_xqk_test_age]  DEFAULT ((0)) FOR [age]
 
 -- 数据
 INSERT INTO [xqk_test] ([test_key], [user_name], [user_salt], [password], [nick_name], [sex], [age], [balance], [create_time], [contents]) VALUES ('64648485.21232f297a57a5a743894a0e4a801fc3', 'admin', 'dcba14f8c8a43118ecb99dd7ba493ea0', '60383678942fb047356f3afa058de5ff', '管理员', 1, 55, 51098.88, '2023-05-17T15:38:44', '管理员拥有无限的权利');
