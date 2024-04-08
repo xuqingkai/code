@@ -24,3 +24,16 @@ INSERT INTO `xqk_test` (`test_key`, `user_name`, `user_salt`, `password`, `nick_
 ('64648487.098f6bcd4621d373cade4e832627b4f6', 'test', '8607f985d1a84dc6c670673040dd9a56', 'd4aeff0f0f41e37b61d6f704d8ae3e32', '测试', 0, 22, '29.68', '2023-05-17 15:38:47', '测试账号');
 
 ```
+```
+CREATE TABLE IF NOT EXISTS `xqk_ip_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+	`ip` varchar(40) NOT NULL,
+	`create_date` varchar(10) NOT NULL,
+	`create_datetime` varchar(20) NOT NULL,
+	`create_timestamp` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+
+INSERT INTO `xqk_ip_log` ([`ip`, `create_date`, `create_datetime`, `create_timestamp`) VALUES ('127.0.0.1', '1970-01-01', '1970-01-01 08:00:01', 1);
+
+```
