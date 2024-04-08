@@ -40,6 +40,6 @@ CREATE TABLE [xqk_ip_log](
 	[create_date] [nvarchar](20) NULL,
 	[create_datetime] [nvarchar](20) NULL,
 	[create_timestamp] [int] NOT NULL DEFAULT 0,
-    CONSTRAINT [PK_xqk_test_id] PRIMARY KEY CLUSTERED ([id] ASC)
+    CONSTRAINT [PK_xqk_ip_log_id] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 ```
