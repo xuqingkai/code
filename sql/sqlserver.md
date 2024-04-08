@@ -36,8 +36,8 @@ INSERT [xqk_test] ([test_key], [user_name], [user_salt], [password], [nick_name]
 IF EXISTS (SELECT * FROM sys.objects WHERE name = 'xqk_ip_log') DROP TABLE xqk_ip_log;
 CREATE TABLE [xqk_ip_log](
     [id] [int] IDENTITY(1,1) NOT NULL,
-	[ip] [nvarchar](22) NULL,
-	[create_date] [nvarchar](20) NULL,
+	[ip] [nvarchar](40) NULL,
+	[create_date] [nvarchar](10) NULL,
 	[create_datetime] [nvarchar](20) NULL,
 	[create_timestamp] [int] NOT NULL DEFAULT 0,
     CONSTRAINT [PK_xqk_ip_log_id] PRIMARY KEY CLUSTERED ([id] ASC)
