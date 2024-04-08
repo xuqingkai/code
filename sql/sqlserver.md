@@ -1,4 +1,7 @@
 ```
+-- 将数据库调整为支持中文，否则数据库中存入中文字符串会变成问号
+ALTER DATABASE xqk_db COLLATE Chinese_PRC_90_CI_AS
+
 -- 表
 IF EXISTS (SELECT * FROM sys.objects WHERE name = 'xqk_test') DROP TABLE xqk_test;
 CREATE TABLE [xqk_test](
@@ -15,8 +18,10 @@ CREATE TABLE [xqk_test](
 	[contents] [nvarchar](max) NULL,
     CONSTRAINT [PK_xqk_test_id] PRIMARY KEY CLUSTERED ([id] ASC)
 );
+
 -- 唯一键
 ALTER TABLE [xqk_test] ADD CONSTRAINT [IX_xqk_test_user_key] UNIQUE NONCLUSTERED ([test_key] ASC);
+
 -- 默认值
 -- ALTER TABLE [xqk_test] ADD  CONSTRAINT [DF_xqk_test_age]  DEFAULT ((0)) FOR [age]
 
