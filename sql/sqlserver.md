@@ -31,3 +31,15 @@ INSERT [xqk_test] ([test_key], [user_name], [user_salt], [password], [nick_name]
 INSERT [xqk_test] ([test_key], [user_name], [user_salt], [password], [nick_name], [sex], [age], [balance], [create_time], [contents]) VALUES ('64648486.ee11cbb19052e40b07aac0ca060c23ee', 'user', '9b2eea4b45bcdd5c3b342456bdff139d', '8ed11b05caf627ebefabf2aa6409d8bb', '用户', 0, 33, 357.44, '2023-05-17 15:38:46', '普通用户是最小的服务单元');
 INSERT [xqk_test] ([test_key], [user_name], [user_salt], [password], [nick_name], [sex], [age], [balance], [create_time], [contents]) VALUES ('64648487.098f6bcd4621d373cade4e832627b4f6', 'test', '8607f985d1a84dc6c670673040dd9a56', 'd4aeff0f0f41e37b61d6f704d8ae3e32', '测试', 0, 22, 29.68, '2023-05-17 15:38:47', '测试账号');
 ```
+
+```
+IF EXISTS (SELECT * FROM sys.objects WHERE name = 'xqk_ip_log') DROP TABLE xqk_ip_log;
+CREATE TABLE [xqk_ip_log](
+    [id] [int] IDENTITY(1,1) NOT NULL,
+	[ip] [nvarchar](22) NULL,
+	[create_date] [nvarchar](20) NULL,
+	[create_datetime] [nvarchar](20) NULL,
+	[create_timestamp] [int] NOT NULL DEFAULT 0,
+    CONSTRAINT [PK_xqk_test_id] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+```
