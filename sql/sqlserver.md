@@ -42,4 +42,7 @@ CREATE TABLE [xqk_ip_log](
 	[create_timestamp] [int] NOT NULL DEFAULT 0,
     CONSTRAINT [PK_xqk_ip_log_id] PRIMARY KEY CLUSTERED ([id] ASC)
 );
+
+INSERT INTO [xqk_ip_log] ([ip], [create_date], [create_datetime], [create_timestamp]) VALUES ('127.0.0.1', '1970-01-01', '1970-01-01 08:00:01', 1);
+
 ```
