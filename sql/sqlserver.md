@@ -1,6 +1,6 @@
 ```
 -- 将数据库调整为支持中文，否则数据库中存入中文字符串会变成问号
-ALTER DATABASE xqk_db COLLATE Chinese_PRC_90_CI_AS
+-- ALTER DATABASE xqk_db COLLATE Chinese_PRC_90_CI_AS
 
 -- 表
 IF EXISTS (SELECT * FROM sys.objects WHERE name = 'xqk_test') DROP TABLE xqk_test;
