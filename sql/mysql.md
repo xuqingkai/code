@@ -28,12 +28,13 @@ INSERT INTO `xqk_user` (`user_id`, `user_name`, `user_salt`, `password`, `nick_n
 CREATE TABLE IF NOT EXISTS `xqk_ip_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
 	`ip` varchar(40) NOT NULL,
+	`address` varchar(50) NOT NULL,
 	`create_date` varchar(10) NOT NULL,
 	`create_datetime` varchar(20) NOT NULL,
 	`create_timestamp` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
-INSERT INTO `xqk_ip_log` ([`ip`, `create_date`, `create_datetime`, `create_timestamp`) VALUES ('127.0.0.1', '1970-01-01', '1970-01-01 08:00:01', 1);
+INSERT INTO `xqk_ip_log` ([`ip`, address`, `create_date`, `create_datetime`, `create_timestamp`) VALUES ('127.0.0.1', '本地', '1970-01-01', '1970-01-01 08:00:01', 1);
 
 ```
