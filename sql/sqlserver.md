@@ -17,7 +17,7 @@ CREATE TABLE [xqk_user](
 );
 
 -- 将数据库调整为支持中文，否则数据库中存入中文字符串会变成问号
--- ALTER DATABASE xqk_user COLLATE Chinese_PRC_90_CI_AS
+-- ALTER DATABASE xqk_test COLLATE Chinese_PRC_90_CI_AS
 
 -- 唯一键
 ALTER TABLE [xqk_user] ADD CONSTRAINT [IX_xqk_user_user_id] UNIQUE NONCLUSTERED ([user_id] ASC);
