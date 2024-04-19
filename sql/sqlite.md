@@ -1,6 +1,6 @@
 ```
 
-CREATE TABLE "xqk_user" (
+CREATE TABLE IF NOT EXISTS "xqk_user" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   "user_id" TEXT,
   "user_name" TEXT,
@@ -20,5 +20,19 @@ INSERT INTO "xqk_user" VALUES (3, '64648486.ee11cbb19052e40b07aac0ca060c23ee', '
 INSERT INTO "xqk_user" VALUES (4, '64648487.098f6bcd4621d373cade4e832627b4f6', 'test', '8607f985d1a84dc6c670673040dd9a56', 'd4aeff0f0f41e37b61d6f704d8ae3e32', '测试', 0, 22, '29.68', '2023-05-17 15:38:47', '测试账号');
 
 UPDATE "sqlite_sequence" SET seq = 4 WHERE name = 'xqk_user';
+
+```
+
+
+```
+CREATE TABLE IF NOT EXISTS "xqk_ip_log" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"ip" TEXT,
+	"address" TEXT,
+	"create_date" TEXT,
+	"create_datetime" TEXT,
+	"create_timestamp" INTEGER DEFAULT 0
+);
+INSERT INTO "xqk_ip_log" VALUES ('127.0.0.1', '本地', '1970-01-01', '1970-01-01 08:00:01', 1);
 
 ```
