@@ -35,14 +35,15 @@ INSERT [xqk_user] ([user_id], [user_name], [user_salt], [password], [nick_name],
 ```
 IF EXISTS (SELECT * FROM sys.objects WHERE name = 'xqk_ip_log') DROP TABLE xqk_ip_log;
 CREATE TABLE [xqk_ip_log](
-    [id] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[ip] [nvarchar](40) NULL,
+	[address] [nvarchar](50) NULL,
 	[create_date] [nvarchar](10) NULL,
 	[create_datetime] [nvarchar](20) NULL,
 	[create_timestamp] [int] NOT NULL DEFAULT 0,
     CONSTRAINT [PK_xqk_ip_log_id] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 
-INSERT INTO [xqk_ip_log] ([ip], [create_date], [create_datetime], [create_timestamp]) VALUES ('127.0.0.1', '1970-01-01', '1970-01-01 08:00:01', 1);
+INSERT INTO [xqk_ip_log] ([ip], [address], [create_date], [create_datetime], [create_timestamp]) VALUES ('127.0.0.1', '本地', '1970-01-01', '1970-01-01 08:00:01', 1);
 
 ```
