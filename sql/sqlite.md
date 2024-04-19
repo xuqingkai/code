@@ -33,6 +33,6 @@ CREATE TABLE IF NOT EXISTS "xqk_ip_log" (
 	"create_datetime" TEXT,
 	"create_timestamp" INTEGER DEFAULT 0
 );
-INSERT INTO "xqk_ip_log" VALUES ('127.0.0.1', '本地', '1970-01-01', '1970-01-01 08:00:01', 1);
+INSERT INTO "xqk_ip_log" VALUES (1, '127.0.0.1', '本地', '1970-01-01', '1970-01-01 08:00:01', 1);
 
 ```
