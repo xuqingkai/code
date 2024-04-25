@@ -34,7 +34,7 @@ $_19payment['data']['sign']=md5($_19payment['temp']['sign_str']);
 $_19payment['request']=[];
 $_19payment['request']['str']=http_build_query($_19payment['data']);
 $_19payment['request']['string']=htmlspecialchars($_19payment['request']['str']);
-$_19payment['request']['url']=$_19payment['config']['url'].'?'.$_19payment['request']['string'];
+$_19payment['request']['url']=$_19payment['config']['url'].'?'.$_19payment['request']['str'];
 $_19payment['response']=[];
 exit('<a href="'.$_19payment['request']['url'].'">'.$_19payment['request']['url'].'</a>');
 //$_19payment['response']['str']=file_get_contents($_19payment['config']['url'], false, stream_context_create(array('http'=>array('method'=>'POST','header'=>"Content-type:application/x-www-form-urlencoded",'content'=>$_19payment['request']['str']),'ssl'=>array('verify_peer'=>false, 'verify_peer_name'=>false))));
