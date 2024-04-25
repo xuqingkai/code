@@ -29,7 +29,7 @@
     $usdpay['request']=[];
     $usdpay['request']['str']=http_build_query($usdpay['data']);
     $usdpay['request']['string']=htmlspecialchars($usdpay['request']['str']);
-    $usdpay['request']['url']=$usdpay['config']['host'].$usdpay['config']['path'].'?'.$usdpay['request']['string'];
+    $usdpay['request']['url']=$usdpay['config']['host'].$usdpay['config']['path'].'?'.$usdpay['request']['str'];
     $usdpay['response']=[];
     //header('Location:'.$usdpay['request']['url']);exit();
     exit('<a href="'.$usdpay['request']['url'].'">'.$usdpay['request']['url'].'</a>');
