@@ -66,8 +66,10 @@ function caiji(){
         $news = db::table('news')->where('origin_id', $item['id'])->find();
         if(!$news){
             Db::name('common_thread')->insert($thread);
-        }
-        $result .= $index.'/'.$page.'----'.$item['id'].'----'.$item['title'].'----'.$root.$item['img'].'<hr />';
+            $result .= $index.'/'.$page.'----'.$item['id'].'----'.$item['title'].'----'.$img_path.'----'.json_encode(imgs_path).'<hr />'."\r\n";
+        }else{
+            $result .= $index.'/'.$page.'----'.$item['id'].'----'.$item['title'].'----已存在<hr />'."\r\n";
+        } 
     }
 
     if($total){
