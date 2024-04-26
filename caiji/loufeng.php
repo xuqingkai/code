@@ -8,7 +8,7 @@ function caiji(){
     $total=0;
     foreach($json as $index=>$item){
         $total++;
-        $img_dir = '../public/uploads/'.date('ymd',time()).'/'.$item['id'].'/thumb';
+        $img_dir = '../public/uploads/'.$item['indexs'].'/'.$item['id'].'/thumb';
         if(!is_dir($img_dir)){ mkdir($img_dir,0777,true); }
 
         if($item['img'] && strpos($item['img'],'.') !== false){
@@ -27,7 +27,7 @@ function caiji(){
             $img_path = '';
         }
 
-        $imgs_dir = '../public/uploads/'.date('ymd',time()).'/'.$item['id'].'/file';
+        $imgs_dir = '../public/uploads/'.$item['indexs'].'/'.$item['id'].'/file';
         if(!is_dir($imgs_dir)){ mkdir($imgs_dir,0777,true); }
         
         if($item['file']){
