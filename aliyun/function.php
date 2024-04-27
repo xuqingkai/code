@@ -17,7 +17,7 @@ function aliyun_request($url, $req){
   $sign = base64_encode($sign);
 
   $query = '';
-  foreach ($dict as $key => $val){ $query .= "&" . $key . "=" . urlencode($val);}
+  foreach ($req as $key => $val){ $query .= "&" . $key . "=" . urlencode($val);}
   $query = substr($query,1);
   $query .= "&Signature=".urlencode($sign);
   $url = $url.'?'.$query;
