@@ -38,7 +38,7 @@ $hnapay['data']['signMsg']=strtoupper($hnapay['data']['signMsg']);
 
 $hnapay['query_string']=htmlspecialchars(http_build_query($hnapay['data']));
 
-$hnapay['response_string']=file_get_contents($hnapay['host'].$hnapay['path'], false, stream_context_create(array(
+$hnapay['response_string']=file_get_contents($hnapay['host'].'/website/scanPay.do', false, stream_context_create(array(
 	'http' => array(
 		'method' => 'POST',
 		'header'  => "Content-type:application/x-www-form-urlencoded\r\nUser-Agent:AppBrowser",
