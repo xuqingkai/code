@@ -19,6 +19,8 @@ $hnapay['public_rsa']=openssl_get_publickey("-----BEGIN PUBLIC KEY-----\n".wordw
 $hnapay['sign_verify']=(bool)openssl_verify($hnapay['sign_str'], hex2bin($hnapay['data']['signMsg']), $hnapay['public_rsa'], version_compare(PHP_VERSION,'5.4.8','>=') ? OPENSSL_ALGO_SHA1 : SHA1);
 if($hnapay['sign_verify']){
     exit('RespCode=200');
+}else{
+    exit('RespCode=500');
 }
 
 
