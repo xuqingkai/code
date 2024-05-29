@@ -13,7 +13,7 @@ $hnapay['data']['orgCode']='WECHATPAY';
 $hnapay['data']['tranIP']=$_SERVER['REMOTE_ADDR'];
 $hnapay['data']['notifyUrl']='http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"];
 $hnapay['data']['notifyUrl']='http://okqq.eu.org/callback/';
-$hnapay['data']['weChatMchId']=$hnapay['baobei_no'];
+$hnapay['data']['weChatMchId']=$hnapay['weChatMchId'];
 $hnapay['data']['charset']='1';//1：UTF-8
 $hnapay['data']['signType']='1';//1：RSA，3：国密交易证书，4：国密密钥
 
@@ -30,7 +30,7 @@ $hnapay['sign_str'].='notifyUrl=['.$hnapay['data']['notifyUrl'].']';
 $hnapay['sign_str'].='charset=['.$hnapay['data']['charset'].']';
 $hnapay['sign_str'].='signType=['.$hnapay['data']['signType'].']';
 
-openssl_sign($hnapay['sign_str'], $hnapay['data']['signMsg'], "-----BEGIN RSA PRIVATE KEY-----\n".wordwrap($hnapay['private_key'], 64, "\n", true)."\n-----END RSA PRIVATE KEY-----", version_compare(PHP_VERSION,'5.4.8','>=') ? OPENSSL_ALGO_SHA1 : SHA1);
+openssl_sign($hnapay['sign_str'], $hnapay['data']['signMsg'], "-----BEGIN RSA PRIVATE KEY-----\n".wordwrap($hnapay['weixin_private_key'], 64, "\n", true)."\n-----END RSA PRIVATE KEY-----", version_compare(PHP_VERSION,'5.4.8','>=') ? OPENSSL_ALGO_SHA1 : SHA1);
 //$hnapay['data']['signMsg']=base64_encode($hnapay['data']['signMsg']);
 $hnapay['data']['signMsg']=bin2hex($hnapay['data']['signMsg']);
 $hnapay['data']['signMsg']=strtoupper($hnapay['data']['signMsg']);
