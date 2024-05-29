@@ -16,11 +16,11 @@ $hnapay['sign_str'].='hnapayOrderId=['.$hnapay['data']['hnapayOrderId'].']';
 
 $hnapay['public_rsa']=openssl_get_publickey("-----BEGIN PUBLIC KEY-----\n".wordwrap($hnapay['public_key'], 64, "\n", true)."\n-----END PUBLIC KEY-----");
 $hnapay['sign_verify']=(bool)openssl_verify($hnapay['sign_str'], base64_decode($hnapay['data']['signValue']), $hnapay['public_rsa'], version_compare(PHP_VERSION,'5.4.8','>=') ? OPENSSL_ALGO_SHA1 : SHA1);
-if($hnapay['sign_verify']){
-    exit('RespCode=200');
-}else{
-    exit('RespCode=500');
-}
+
+if(!$hnapay['sign_verify']){ exit('RespCode=500'); }
+if($hnapay['data']['resultCode']!='0000'){ exit('RespCode=501'); }
+exit('RespCode=200');
+
 /*
 charset=1
 &bankCode=ALIPAY
