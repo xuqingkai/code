@@ -20,7 +20,7 @@ $hnapay['msgCiphertext']['frontUrl']='http'.(isset($_SERVER["HTTPS"])?'s':'').':
 $hnapay['msgCiphertext']['notifyUrl']='http://okgo.pp.ua/callback/';
 $hnapay['msgCiphertext']['riskExpand']='';
 $hnapay['msgCiphertext']['goodsInfo']='';
-$hnapay['msgCiphertext']['orderSubject']='订单'.$hnapay['data']['merOrderId'];
+$hnapay['msgCiphertext']['orderSubject']='order'.$hnapay['data']['merOrderId'];
 $hnapay['msgCiphertext']['orderDesc']='';
 $hnapay['msgCiphertext']['merchantId']='{"02":"'.$hnapay['baobei_no'].'"}';
 $hnapay['msgCiphertext']['bizProtocolNo']='';
@@ -28,13 +28,13 @@ $hnapay['msgCiphertext']['payProtocolNo']='';
 $hnapay['msgCiphertext']['merUserIp']=$_SERVER['REMOTE_ADDR'];
 $hnapay['msgCiphertext']['payLimit']='';
 
-$crypted = array();
-foreach(str_split(json_encode($hnapay['msgCiphertext'], JSON_UNESCAPED_UNICODE), 117) as $item){
-    $subCrypted = null;
-    openssl_public_encrypt($item, $subCrypted, "-----BEGIN PUBLIC KEY-----\n".wordwrap($hnapay['public_key'], 64, "\n", true)."\n-----END PUBLIC KEY-----");
-    $crypted[] = $subCrypted;
+$hnapay['encrypted']=array();
+foreach(str_split(json_encode($hnapay['msgCiphertext'], JSON_UNESCAPED_UNICODE), 117) as $hnapay['item']){
+    $hnapay['item_encrypted']='';
+    openssl_public_encrypt($hnapay['item'], $hnapay['item_encrypted'], "-----BEGIN PUBLIC KEY-----\n".wordwrap($hnapay['public_key'], 64, "\n", true)."\n-----END PUBLIC KEY-----");
+    $hnapay['encrypted'][]=$hnapay['item_encrypted'];
 }
-$hnapay['data']['msgCiphertext']=base64_encode(implode('',$crypted));
+$hnapay['data']['msgCiphertext']=base64_encode(implode('',$hnapay['encrypted']));
 $hnapay['data']['signType']='1';//1：RSA，3：国密交易证书，4：国密密钥
 $hnapay['data']['merAttach']='merAttach';//1：UTF-8
 $hnapay['data']['charset']='1';//1：UTF-8
