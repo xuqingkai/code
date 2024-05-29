@@ -4,7 +4,6 @@
 
 //网关请求地址
 $hnapay['host']='https://gateway.hnapay.com';
-$hnapay['path']='/website/scanPay.do';
 
 //商户编号
 //https://portal.hnapay.com/
