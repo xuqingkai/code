@@ -11,7 +11,7 @@ $hnapay['merId']='';
 
 //微信报备编号
 //https://merchant.hnapay.com
-$hnapay['baobei_no']='';
+$hnapay['weChatMchId']='';
 //微信接口付款公钥
 $hnapay['weixin_public_key']='';
 $hnapay['weixin_public_key']=str_replace('-----BEGIN PUBLIC KEY-----','',str_replace('-----END PUBLIC KEY-----','',$hnapay['weixin_public_key']));
@@ -23,7 +23,7 @@ $hnapay['weixin_private_key']=str_replace("\r",'',str_replace("n",'',$hnapay['we
 
 //支付宝报备编号
 //https://merchant.hnapay.com
-$hnapay['baobei_no']='';
+$hnapay['merchantId']='';
 //支付宝接口付款公钥
 $hnapay['alipay_public_key']='';
 $hnapay['alipay_public_key']=str_replace('-----BEGIN PUBLIC KEY-----','',str_replace('-----END PUBLIC KEY-----','',$hnapay['alipay_public_key']));
