@@ -4,7 +4,7 @@ include_once('./ldpay.config.php');
 $ldpay['data']=array();
 $ldpay['data']['mer_id']=$ldpay['mer_id'];
 $ldpay['data']['order_id']=date('YmdHis').rand(1000,9999);
-$ldpay['data']['amount']=floatval('1.01'*1);
+$ldpay['data']['amount']=floatval('1.01'*100);
 $ldpay['data']['goods_inf']=$ldpay['data']['order_id'];
 $ldpay['data']['notify_url']='http://okgo.pp.ua/callback/';
 
