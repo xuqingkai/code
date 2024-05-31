@@ -9,8 +9,8 @@
 */
 include_once('./ldpay.config.php');
 $ldpay['data']=$_POST;
-if($ldpay['data']['mer_id']==$ldpay['mer_id']){
-    
-    exit("success");
-}
+if($ldpay['data']['mer_id'] != $ldpay['mer_id']){ exit('mer_id_error'); }
+if($ldpay['data']['ret_code']!='0000' || $ldpay['data']['status']!='success'){ exit('fail'); }
+exit('success');
+
 ?>
