@@ -7,6 +7,10 @@
     "status":"success"
 }
 */
-
-
+include_once('./ldpay.config.php');
+$ldpay['data']=$_POST;
+if($ldpay['data']['mer_id']==$ldpay['mer_id']){
+    
+    exit("success");
+}
 ?>
