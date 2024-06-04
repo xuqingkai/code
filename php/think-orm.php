@@ -17,11 +17,11 @@ Db::setConfig([
             // 主机地址
             'hostname' => '127.0.0.1',
             // 数据库名
-            'database' => 'peis',
+            'database' => 'xqk_db',
             // 用户名
-            'username' => 'peis',
+            'username' => 'root',
             //密码
-            'password' => 'pscale_pw_X1en7okJGqRdyPUMbAR4vqpF2I2JLKVdjUOB2tpaCmQ',
+            'password' => '123456',
             //端口
             'hostport' => '3306',
             //参数
