@@ -1,101 +1,108 @@
 function caiji(){
     $result='';
-    $root = 'https://www.example.com';
-    $all = intval('0'.input('get.all'));//默认0,只采集新数据
-    $page = intval('0'.input('get.page')); if($page<1){$page=1;}
-    $str = file_get_contents('http://xg.52xa.xyz/index/cj/paging.html?pg='.$page);
+    $img_host = 'https://www.imagecdn.com';
+    $api_host = 'http://www.example.com';
+    $upload_folder = 'uploads';
+    $all = intval('0'.$_GET['all']);//默认0,只采集新数据
+    $page = intval('0'.$_GET['page']); if($page<1){$page=1;}
+    $str = file_get_contents($api_host.'/api/json/data.html'), false, stream_context_create(array('http'=>array('method'=>'POST','header'=>"Content-type:application/x-www-form-urlencoded\r\nUser-Agent:AppBrowser\r\nX-Requested-With:XMLHttpRequest",'content'=>'page='.$page),'ssl'=>array('verify_peer'=>false, 'verify_peer_name'=>false))));
     $json = json_decode($str,true);
     $total=0;
-    foreach($json as $key=>$item){
+    foreach($json['data'] as $key=>$item){
+        $indexs=date('Ymd',$item['create_time']/1000);
+        $indexs=$item['indexs'];
         $img_path='';
-        $thumbsave = '../public/uploads/'.$item['indexs'].'/'.$item['id'].'/thumb/';
-        if(!is_dir($thumbsave)){ mkdir($thumbsave,0777,true); }
-        $itemimg = str_replace('../public','',$item['img']);
-        if($itemimg && strpos($itemimg,'.')!==false){
-            $texp = explode('.',$itemimg);
-            $thubmimg = $thumbsave.md5($texp[0]).'.'.$texp[1];
-            if(!file_exists($thubmimg)){
-                $img = @file_get_contents($root.$itemimg);
-                if($img===false){
-                    $thubmimg = '';
+        $thumb_save = '../public/'.$upload_folder.'/'.$indexs.'/'.$item['id'].'/thumb/';
+        //exit($thumb_save'----'.$item['publishedAt']);
+        if(!is_dir($thumb_save)){ mkdir($thumb_save,0777,true); }
+        $item_thumb = $item['coverPicture'];
+        if($item_thumb && strpos($item_thumb,'.')!==false){
+            $name = substr($item_thumb, 0, strrpos($item_thumb,'.'));
+            $ext = substr($item_thumb, strrpos($item_thumb,'.') + 1);
+            $thumb_img = $thumb_save.md5($ext).'.'.$ext;
+            if(!file_exists($thumb_img)){
+                $image = @file_get_contents($img_host.$item_thumb, false, stream_context_create(array('http'=>array('method'=>'GET','header'=>"Content-type:application/x-www-form-urlencoded\r\nReferer:".$api_host."\r\nUser-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",'content'=>''),'ssl'=>array('verify_peer'=>false, 'verify_peer_name'=>false))));
+                if($image === false){
+                    $thumb_img = '';
                 }else{
-                    $img_path=$item['img'];
-                    file_put_contents($thubmimg, $img);
+                    $img_path=$item['coverPicture'];
+                    file_put_contents($thumb_img, $image);
                 }
             }else{
-                $img_path='已有：'.$thubmimg;
+                $img_path='已有：'.$thumb_img;
             }
         }else{
-            $thubmimg = '';
+            $thumb_img = '';
         }
         
 
-        $filesave = '../public/uploads/'.$item['indexs'].'/'.$item['id'].'/file/';
-        if(!is_dir($filesave)){ mkdir($filesave,0777,true); }
+        $file_save = '../public/'.$upload_folder.'/'$indexs.'/'.$item['id'].'/file/';
+        if(!is_dir($file_save)){ mkdir($file_save,0777,true); }
         
         $imgs_path=[];
         if($item['file']){
-            $fileimg = [];
-            $files = json_decode($item['file'],true);
+            $file_imgs = [];
+            $files = $files = substr($item['file'],0,1)=='['?json_decode($item['file'],true):explode(',',$item['file']);;
             if($files){
                 foreach($files as $index => $file){
-                    $itemimg = str_replace('../public','',$file);
-                    if(strpos($itemimg,'.')!==false){
-                        $fexp = explode('.', $itemimg);
-                        $file_name = $filesave.md5($fexp[0]).'.'.$fexp[1];
+                    $item_file=$file;
+                    if(strpos($item_file,'.')!==false){
+                        $name = substr($item_file, 0, strrpos($item_file,'.'));
+                        $ext = substr($item_file, strrpos($item_file,'.') + 1);
+                        $file_path = $file_save.md5($name).'.'.$ext;
                         
-                        if(!file_exists($file_name)){
-                            $img = @file_get_contents($root.$itemimg);
-                            if($img===false){
+                        if(!file_exists($file_path)){
+                            $image=@file_get_contents($img_host.$item_file, false, stream_context_create(array('http'=>array('method'=>'GET','header'=>"Content-type:application/x-www-form-urlencoded\r\nReferer:".$api_host."\r\nUser-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",'content'=>''),'ssl'=>array('verify_peer'=>false, 'verify_peer_name'=>false))));
+                            if($image===false){
                                 
                             }else{
                                 $imgs_path[] = $file;
-                                file_put_contents($file_name, $img);
-                                $fileimg[] = $file_name;
+                                file_put_contents($file_path, $image);
+                                $file_imgs[] = $file_path;
                             }
                         }else{
-                            $fileimg[] = $file_name;
+                            $file_imgs[] = $file_path;
                         }
                     }
                  }
             }
-            $fileimg = json_encode($fileimg);
-            
+            $file_imgs = json_encode($file_imgs);   
         }else{
-            $fileimg = '[]';
+            $file_imgs = '[]';
         }
-        
+        $only=md5($api_host.'/'.$item['id']);
+        $only=$item['only'];
         $thread = [
             'title'=>$item['title'],
             'age'=>$item['age'],
             'price'=>$item['price'],
             'project'=>$item['project'],
             'process'=>$item['process'],
-            'qq'=>$item['qq'],
-            'wechat'=>$item['wechat'],
-            'phone'=>$item['phone'],
-            'address'=>$item['address'],
-            'dz'=>$item['dz'],
-            'pid'=>$item['pid'],
-            'cid'=>$item['cid'],
-            'status'=>$item['status'],
+            'qq'=>$item['qq']??'',
+            'wechat'=>$item['wechat']??'',
+            'phone'=>$item['phone']??'',
+            'address'=>$item['address']??'',
+            'dz'=>$item['dz']??'',
+            'pid'=>$item['pid']??'0',
+            'cid'=>$item['cid']??'0',
+            'status'=>$item['status']==2?'0':'0',
             'browse'=>$item['browse'],
             'create_time'=>$item['create_time'],
             'author'=>$item['author'],
-            'file'=>$fileimg,
-            'img'=>$thubmimg,
+            'file'=>$file_imgs,
+            'img'=>$thumb_img,
             'face_value'=>$item['face_value'],
-            'indexs'=>$item['indexs'],
-            'only'=>$item['only'],
+            'indexs'=>$indexs,
+            'only'=>$only,
         ];
-        $id = db::table('common_thread')->where('only', $item['only'])->value('id');
+        $id = db::table('common_thread')->where('only', $only)->value('id');
         if(!$id){
             Db::name('common_thread')->insert($thread);
-            $result .= $key.'/'.$page.'----'.$item['id'].'----'.$item['title'].'----'.$img_path.'---'.json_encode($imgs_path).'<hr />'."\r\n";
+            $result .= json_encode($thread,JSON_UNESCAPED_UNICODE).'<br >'.$key.'/'.$page.'----'.$item['id'].'----'.$item['title'].'----'.$img_path.'---'.json_encode($imgs_path).'<hr />'."\r\n";
             $total++;
         }else{
-            Db::name('common_thread')->where('id', $id)->update(['file'=>$fileimg,'img'=>$thubmimg]);
-            $result .= $key.'/'.$page.'----'.$item['id'].'----'.$item['title'].'---已存在(<a href="https://www.yd1.xyz/index/data/show.html?id='.$id.'">'.$id.'</a>)----'.$img_path.''.'<hr />'."\r\n";
+            Db::name('common_thread')->where('id', $id)->update(['file'=>$file_imgs,'img'=>$thumb_img]);
+            $result .= json_encode($thread,JSON_UNESCAPED_UNICODE).'<br >'.$key.'/'.$page.'----'.$item['id'].'----'.$item['title'].'---已存在(<a href="https://www.yd1.xyz/index/data/show.html?id='.$id.'">'.$id.'</a>)----'.$img_path.''.'<hr />'."\r\n";
             if($all>0){$total++;}
         }
     }
