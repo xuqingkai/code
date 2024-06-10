@@ -89,12 +89,12 @@ function caiji(){
             'cid'=>$item['cid']??'0',
             'status'=>$item['status']==2?'0':'0',
             'browse'=>$item['browse'],
-            'create_time'=>$item['create_time'],
+            'create_time'=>$item['create_time'],//格式：10位数字时间戳
             'author'=>$item['author'],
             'file'=>$file_imgs,
             'img'=>$thumb_img,
             'face_value'=>$item['face_value'],
-            'indexs'=>$indexs,
+            'indexs'=>$indexs,//格式：20080808
             'only'=>$only,
         ];
         $id = db::table('common_thread')->where('only', $only)->value('id');
