@@ -45,7 +45,7 @@ function caiji(){
         $imgs_path=[];
         if($item['file']){
             $file_imgs = [];
-            $files = $files = substr($item['file'],0,1)=='[' ? json_decode($item['file'],true) : explode(',',$item['file']);
+            $files = substr($item['file'],0,1)=='[' ? json_decode($item['file'],true) : explode(',',$item['file']);
             if($files){
                 foreach($files as $index => $file){
                     $item_file=$file;
