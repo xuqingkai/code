@@ -1,22 +1,25 @@
 function caiji(){
-    $result='';
+
     $img_host = 'https://www.imagecdn.com';
     $api_host = 'http://www.example.com';
+    $api_path = '/api/json/data.html';
     $upload_folder = 'uploads';
+    $result='';
     $all = intval('0'.$_GET['all']);//默认0,只采集新数据
     $page = intval('0'.$_GET['page']); if($page<1){$page=1;}
-    $str = file_get_contents($api_host.'/api/json/data.html'), false, stream_context_create(array('http'=>array('method'=>'POST','header'=>"Content-type:application/x-www-form-urlencoded\r\nUser-Agent:AppBrowser\r\nX-Requested-With:XMLHttpRequest",'content'=>'page='.$page),'ssl'=>array('verify_peer'=>false, 'verify_peer_name'=>false))));
-    $json = json_decode($str,true);
+    $response = file_get_contents($api_host.$api_path), false, stream_context_create(array('http'=>array('method'=>'POST','header'=>"Content-type:application/x-www-form-urlencoded\r\nUser-Agent:AppBrowser\r\nX-Requested-With:XMLHttpRequest",'content'=>'page='.$page),'ssl'=>array('verify_peer'=>false, 'verify_peer_name'=>false))));
+    $json = json_decode($response,true);
     $total=0;
     foreach($json['data'] as $key=>$item){
-        $indexs=date('Ymd',$item['create_time']/1000);
-        $indexs=$item['indexs'];
-        $img_path='';
+        $indexs = date('Ymd',$item['create_time']/1000);
+        $indexs = $item['indexs'];
+        $img_path = '';
         $thumb_save = '../public/'.$upload_folder.'/'.$indexs.'/'.$item['id'].'/thumb/';
         //exit($thumb_save'----'.$item['publishedAt']);
-        if(!is_dir($thumb_save)){ mkdir($thumb_save,0777,true); }
-        $item_thumb = $item['coverPicture'];
-        if($item_thumb && strpos($item_thumb,'.')!==false){
+        if(!is_dir($thumb_save)){ mkdir($thumb_save, 0777, true); }
+        $item_thumb = $item['img'];
+        $item_thumb = str_replace('../public','',$item_thumb);
+        if($item_thumb && strpos($item_thumb,'.') !== false){
             $name = substr($item_thumb, 0, strrpos($item_thumb,'.'));
             $ext = substr($item_thumb, strrpos($item_thumb,'.') + 1);
             $thumb_img = $thumb_save.md5($ext).'.'.$ext;
@@ -25,7 +28,7 @@ function caiji(){
                 if($image === false){
                     $thumb_img = '';
                 }else{
-                    $img_path=$item['coverPicture'];
+                    $img_path=$item['img'];
                     file_put_contents($thumb_img, $image);
                 }
             }else{
@@ -37,20 +40,19 @@ function caiji(){
         
 
         $file_save = '../public/'.$upload_folder.'/'$indexs.'/'.$item['id'].'/file/';
-        if(!is_dir($file_save)){ mkdir($file_save,0777,true); }
+        if(!is_dir($file_save)){ mkdir($file_save, 0777, true); }
         
         $imgs_path=[];
         if($item['file']){
             $file_imgs = [];
-            $files = $files = substr($item['file'],0,1)=='['?json_decode($item['file'],true):explode(',',$item['file']);;
+            $files = $files = substr($item['file'],0,1)=='[' ? json_decode($item['file'],true) : explode(',',$item['file']);
             if($files){
                 foreach($files as $index => $file){
                     $item_file=$file;
-                    if(strpos($item_file,'.')!==false){
+                    if(strpos($item_file,'.') !== false){
                         $name = substr($item_file, 0, strrpos($item_file,'.'));
                         $ext = substr($item_file, strrpos($item_file,'.') + 1);
                         $file_path = $file_save.md5($name).'.'.$ext;
-                        
                         if(!file_exists($file_path)){
                             $image=@file_get_contents($img_host.$item_file, false, stream_context_create(array('http'=>array('method'=>'GET','header'=>"Content-type:application/x-www-form-urlencoded\r\nReferer:".$api_host."\r\nUser-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",'content'=>''),'ssl'=>array('verify_peer'=>false, 'verify_peer_name'=>false))));
                             if($image===false){
@@ -98,11 +100,11 @@ function caiji(){
         $id = db::table('common_thread')->where('only', $only)->value('id');
         if(!$id){
             Db::name('common_thread')->insert($thread);
-            $result .= json_encode($thread,JSON_UNESCAPED_UNICODE).'<br >'.$key.'/'.$page.'----'.$item['id'].'----'.$item['title'].'----'.$img_path.'---'.json_encode($imgs_path).'<hr />'."\r\n";
+            $result .= json_encode($thread,JSON_UNESCAPED_UNICODE).'<br >'.$key.'/'.$page.'----'.$item['id'].'----'.$item['title'].'----<a href="'.$img_host.$item['img'].'" target="_blank">'.$img_path.'</a>---'.json_encode($imgs_path).'<hr />'."\r\n";
             $total++;
         }else{
-            Db::name('common_thread')->where('id', $id)->update(['file'=>$file_imgs,'img'=>$thumb_img]);
-            $result .= json_encode($thread,JSON_UNESCAPED_UNICODE).'<br >'.$key.'/'.$page.'----'.$item['id'].'----'.$item['title'].'---已存在(<a href="https://www.yd1.xyz/index/data/show.html?id='.$id.'">'.$id.'</a>)----'.$img_path.''.'<hr />'."\r\n";
+            Db::name('common_thread')->where('id', $id)->update(['img'=>$thumb_img,'file'=>$file_imgs]);
+            $result .= json_encode($thread,JSON_UNESCAPED_UNICODE).'<br >'.$key.'/'.$page.'----'.$item['id'].'----'.$item['title'].'---已存在(<a href="/index/data/show.html?id='.$id.'">'.$id.'</a>)----'.$img_path.''.'<hr />'."\r\n";
             if($all>0){$total++;}
         }
     }
