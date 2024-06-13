@@ -1,13 +1,16 @@
 <?php
 //请求地址
-$url = 'http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
-$url = 'http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"].$_SERVER["DOCUMENT_URI"].'?'.$_SERVER["QUERY_STRING"];
+$url = 'http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+$url = 'http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"].$_SERVER["DOCUMENT_URI"].'?'.$_SERVER["QUERY_STRING"];
+
+//请求目录
+$url = 'http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER['HTTP_HOST'].substr($_SERVER["REQUEST_URI"],0,strrpos($_SERVER["REQUEST_URI"],'/'))
 
 //请求主机
-$host = 'http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"];
+$host = 'http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"];
 
 //请求文件URL
-$file_url = 'http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"];
+$file_url = 'http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"];
 
 //网站根路径
 $root_path = $_SERVER["DOCUMENT_ROOT"];
