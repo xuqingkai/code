@@ -43,8 +43,6 @@ foreach ($shouxinyi['data'] as $key=>$val){
                 foreach ($val1 as $key2=>$val2){
                     if(!is_array($val2)){
                         $shouxinyi['sign_string'].=$val2.'#';
-                    }else{
-                        ksort($val2);
                     }
                 }
             }
@@ -69,11 +67,10 @@ $shouxinyi['public_key'] = file_get_contents($shouxinyi['api_cer_file_path']);
 if(strpos($shouxinyi['public_key'],'-----') === false){
     $shouxinyi['public_key'] = "-----BEGIN CERTIFICATE-----\n".chunk_split(base64_encode(file_get_contents($shouxinyi['api_cer_file_path'])),64,"\n")."-----END CERTIFICATE-----\n";
 }
-
 openssl_public_encrypt($shouxinyi['aes_key'], $shouxinyi['encryptKey'], openssl_pkey_get_public($shouxinyi['public_key']));
 $shouxinyi['encryptKey']=base64_encode($shouxinyi['encryptKey']);
 
-$shouxinyi['response_string']=file_get_contents($shouxinyi['host'].'/onlinePay/order', false, stream_context_create(array(
+$shouxinyi['response_string']=file_get_contents($shouxinyi['api_host'].'/onlinePay/order', false, stream_context_create(array(
 	'http' => array(
 		'method' => 'POST',
 		'header'  => "Content-Type:application/vnd.5upay-v3.0+json\r\nencryptKey:".$shouxinyi['encryptKey']."\r\nmerchantId:".$shouxinyi['data']['merchantId']."\r\nrequestId:".$shouxinyi['data']['requestId'],
@@ -93,17 +90,24 @@ foreach ($http_response_header as $header){
 };
 if($shouxinyi['decryptKey']){
     openssl_private_decrypt(base64_decode($shouxinyi['decryptKey']), $shouxinyi['aes_key_response'], openssl_pkey_get_private($shouxinyi['private_rsa']['pkey']));//私钥解密
+    $shouxinyi['response_json']=json_decode($shouxinyi['response_string'], true);
     $shouxinyi['response_data'] = substr($shouxinyi['response_string'], 9);
     $shouxinyi['response_data'] = substr($shouxinyi['response_data'], 0, strlen($shouxinyi['response_data'])-2);
-    $shouxinyi['response_json'] = openssl_decrypt($shouxinyi['response_data'], "AES-128-ECB", $shouxinyi['aes_key_response']);
-    $shouxinyi['response_json'] = preg_replace('/[\x00-\x1F]/','', $shouxinyi['response_json']);
-    $shouxinyi['response'] = json_decode($shouxinyi['response_json'],true);
+    
+    $shouxinyi['response_decrypted'] = openssl_decrypt($shouxinyi['response_data'], "AES-128-ECB", $shouxinyi['aes_key_response']);
+    $shouxinyi['response_decrypted'] = preg_replace('/[\x00-\x1F]/','', $shouxinyi['response_decrypted']);
+    $shouxinyi['response'] = json_decode($shouxinyi['response_decrypted'],true);
     header('Content-Type:application/json');
     exit(json_encode($shouxinyi, JSON_UNESCAPED_UNICODE));
 
 
     if ($shouxinyi['response']["status"] == 'REDIRECT'){
-        exit('<a href="'.$shouxinyi['response']['redirectUrl'].'" target="_blank">'.$shouxinyi['response']['redirectUrl'].'</a>');
+        $shouxinyi['user_agent']=$_SERVER['HTTP_USER_AGENT'];
+        if((strpos($shouxinyi['user_agent'], "Android")>0 || strpos($shouxinyi['user_agent'], "iPhone")>0 || strpos($shouxinyi['user_agent'], "ios")>0 || strpos($shouxinyi['user_agent'], "iPod")>0)){
+            exit('<a href="'.$shouxinyi['response']['redirectUrl'].'" target="_blank">'.$shouxinyi['response']['redirectUrl'].'</a>');
+        }else{
+            exit('<a href="'.$shouxinyi['response']['redirectUrl'].'" target="_blank">PC端浏览器可能域名受限</a>');
+        }
         //header("Location: ".$shouxinyi['response']['redirectUrl']);exit();
     }elseif($shouxinyi['response']["status"] == 'SUCCESS'){
         if(isset($shouxinyi['response']["scanCodeUrl"])){
