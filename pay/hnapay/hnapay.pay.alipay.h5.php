@@ -16,7 +16,7 @@ $hnapay['msgCiphertext']['holderName']='';
 $hnapay['msgCiphertext']['identityCode']='';
 $hnapay['msgCiphertext']['merUserId']='';
 $hnapay['msgCiphertext']['orderExpireTime']='';
-$hnapay['msgCiphertext']['frontUrl']='http'.(isset($_SERVER["HTTPS"])?'s':'').'://'.$_SERVER["HTTP_HOST"];
+$hnapay['msgCiphertext']['frontUrl']='http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"];
 $hnapay['msgCiphertext']['notifyUrl']='http://okgo.pp.ua/callback/';
 $hnapay['msgCiphertext']['riskExpand']='';
 $hnapay['msgCiphertext']['goodsInfo']='';
