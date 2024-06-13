@@ -16,8 +16,8 @@ $_19payment['data']['parter']=$_19payment['config']['parter'];
 $_19payment['data']['type']='ALIPAYWAP';//ALIPAY	支付宝,ALIPAYWAP	支付宝WAP,WEIXIN	微信支付,WEIXINWAP	微信WAP
 $_19payment['data']['amount']=number_format("1.00", 2, '.', '');;
 $_19payment['data']['orderno']=date('YmdHis');
-$_19payment['data']['recefiveurl']='http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"].$_SERVER["DOCUMENT_URI"].'?'.$_SERVER["QUERY_STRING"];
-$_19payment['data']['notifyurl']='http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"].$_SERVER["DOCUMENT_URI"];
+$_19payment['data']['recefiveurl']='http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"].$_SERVER["DOCUMENT_URI"].'?'.$_SERVER["QUERY_STRING"];
+$_19payment['data']['notifyurl']='http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"].$_SERVER["DOCUMENT_URI"];
 $_19payment['data']['notifyurl']='http://test.d6m.cn/callback/';
 
 $_19payment['data']['remark']='remark';
