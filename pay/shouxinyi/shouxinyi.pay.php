@@ -118,7 +118,7 @@ if($shouxinyi['decryptKey']){
     		//header('Content-type: image/jpg');print_r(base64_decode($shouxinyi['response']["scanCode"]));
         }
 	}else{
-		//exit($shouxinyi['response_json']);
+		//exit($shouxinyi['response_decrypted']);
 	}
 }
 //var_dump($shouxinyi);exit();
