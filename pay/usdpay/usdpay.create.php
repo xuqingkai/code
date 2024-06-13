@@ -11,8 +11,8 @@
     $usdpay['data']['pid']=$usdpay['config']['id'];
     $usdpay['data']['type']='alipc';
     $usdpay['data']['out_trade_no']=date('YmdHis').rand(1000,9999);
-    $usdpay['data']['notify_url']='http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
-    $usdpay['data']['return_url']='http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI'];
+    $usdpay['data']['notify_url']='http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"].substr($_SERVER["REQUEST_URI"],0,strrpos($_SERVER["REQUEST_URI"],'/')).'/usdpay.notify.php';
+    $usdpay['data']['return_url']='http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"];
     $usdpay['data']['name']='name';
     $usdpay['data']['money']=number_format($usdpay['config']['money']??'10.00', 2, '.', '');;
     $usdpay['data']['sitename']='sitename';
