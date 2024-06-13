@@ -6,8 +6,8 @@ $shouxinyi['data']['merchantId']=$shouxinyi['merchantId'];
 $shouxinyi['data']['orderAmount']=intval('1.00'*100);
 $shouxinyi['data']['orderCurrency']='CNY';
 $shouxinyi['data']['requestId']=date('YmdHis').rand(1000,9999);
-$shouxinyi['data']['notifyUrl']='http://'.$_SERVER['HTTP_HOST'].'/shouxinyi/shouxinyi.notify.php';
-$shouxinyi['data']['callbackUrl']='http://'.$_SERVER['HTTP_HOST'].'/';
+$shouxinyi['data']['notifyUrl']='http'.(isset($_SERVER["HTTPS"])?'s':'').'://'.$_SERVER['HTTP_HOST'].'/shouxinyi/shouxinyi.notify.php';
+$shouxinyi['data']['callbackUrl']='http'.(isset($_SERVER["HTTPS"])?'s':'').'://'.$_SERVER['HTTP_HOST'].'/';
 $shouxinyi['data']['paymentModeCode']='BANK_CARD-EXPRESS_DEBIT';
 /*
 BANK_CARD-EXPRESS_DEBIT快捷支付借记卡
