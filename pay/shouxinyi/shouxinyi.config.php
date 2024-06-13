@@ -12,5 +12,8 @@ $shouxinyi['mch_pfx_file_path']='./client.pfx';
 //商户私钥密码
 $shouxinyi['mch_pfx_file_password']='';
 
-//接口公钥
-$shouxinyi['api_cer_file_path']='./server.cer';
+//接口公钥，demo里的
+$shouxinyi['api_cer_file_path']='./test.cer';
+
+//快捷支付是，支付用户标识，绑定支付信息
+$shouxinyi['merchantUserId']='';
