@@ -8,7 +8,7 @@ $laozhao['data']['parter']=$laozhao['id'];
 $laozhao['data']['type']='992';
 $laozhao['data']['value']='1';
 $laozhao['data']['orderid']=date('YmdHis').rand(10000,99999);
-$laozhao['data']['callbackurl']='http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"];
+$laozhao['data']['callbackurl']='http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"];
 
 $laozhao['str']=''; foreach($laozhao['data'] as $key=>$val){ $laozhao['str'].='&'.$key.'='.$val; }
 $laozhao['str']=substr($laozhao['str'],1).$laozhao['key'];
