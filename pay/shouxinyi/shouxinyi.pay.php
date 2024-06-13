@@ -32,17 +32,17 @@ $shouxinyi['sign_string'] ='';
 ksort($shouxinyi['data']);
 foreach ($shouxinyi['data'] as $key=>$val){
     if(!is_array($val)){
-        $shouxinyi['sign_string'].=$val.'#';
+        if(strlen($val)){$shouxinyi['sign_string'].=$val.'#';}
     }else{
         ksort($val);
         foreach ($val as $key1=>$val1){
             if(!is_array($val1)){
-                $shouxinyi['sign_string'].=$val1.'#';
+                if(strlen($val1)){$shouxinyi['sign_string'].=$val1.'#';}
             }else{
                 ksort($val1);
                 foreach ($val1 as $key2=>$val2){
                     if(!is_array($val2)){
-                        $shouxinyi['sign_string'].=$val2.'#';
+                        if(strlen($val2)){$shouxinyi['sign_string'].=$val2.'#';}
                     }
                 }
             }
