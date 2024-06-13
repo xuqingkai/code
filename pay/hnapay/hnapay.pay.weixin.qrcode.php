@@ -11,7 +11,7 @@ $hnapay['data']['submitTime']=date('YmdHis');
 $hnapay['data']['payType']='QRCODE_B2C';
 $hnapay['data']['orgCode']='WECHATPAY';
 $hnapay['data']['tranIP']=$_SERVER['REMOTE_ADDR'];
-$hnapay['data']['notifyUrl']='http'.($_SERVER["HTTPS"] == 'on' ? 's' : '').'://'.$_SERVER["HTTP_HOST"];
+$hnapay['data']['notifyUrl']='http'.($_SERVER["SERVER_PORT"]==443?'s':'').'://'.$_SERVER["HTTP_HOST"];
 $hnapay['data']['notifyUrl']='http://okqq.eu.org/callback/';
 $hnapay['data']['weChatMchId']=$hnapay['weChatMchId'];
 $hnapay['data']['charset']='1';//1：UTF-8
