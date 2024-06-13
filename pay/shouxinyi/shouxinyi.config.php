@@ -1,7 +1,7 @@
 <?php
 
 //网关请求地址
-$shouxinyi['host']='https://apis.5upay.com';
+$shouxinyi['api_host']='https://apis.5upay.com';
 
 //商户编号
 $shouxinyi['merchantId']='';
@@ -17,3 +17,6 @@ $shouxinyi['api_cer_file_path']='./test.cer';
 
 //快捷支付是，支付用户标识，绑定支付信息
 $shouxinyi['merchantUserId']='';
+
+//回调转发地址
+$shouxinyi['notify_forward_url']='';
