@@ -29,7 +29,7 @@ if($query=='view'){
     @unlink($file);
     exit('<script type="text/javascript">window.location.href="?view";</script>');
 }else{
-    $response='OK';
+    $response=$name;
     $text="\r\n\r\n";
     $text.=date('Y-m-d H:i:s')."\r\n";
     $text.="-----【URL】------------------------------------------------------------------\r\n";
