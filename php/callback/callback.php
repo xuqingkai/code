@@ -1,28 +1,84 @@
 <?php
-$file_path='./callback.txt';
-$contents = '';
-$queryString = $_SERVER['QUERY_STRING'];
-if($queryString=='view'){
-    if(is_file($file_path)){ $contents = file_get_contents($file_path); }
-}else if($queryString=='clear'){
-    if(is_file($file_path)){ unlink($file_path); }
+$file='./callback.txt';
+$url=$_SERVER['PATH_INFO'];
+$headers=[];
+if($url){
+    if(strpos($url,'/http:/')!==false || strpos($url,'/https:/')!==false){
+        $headers=str_replace('/','',substr($url,0,strpos($url,'/http')));
+        $url=str_replace(':/','://',substr($url,strpos($url,'/http')+1));
+        $file='./'.explode('/',$url)[2].'.txt';
+    }else{
+        $headers=substr($url,1);
+        if(strpos($url,'/')!==false){$headers=substr($headers,0,strpos($url,'/'));}
+        $url='';
+    }
+    if($headers){
+        $headers=explode('|',str_replace(',','|',$headers));
+    }else{
+        $headers=[];
+    }
+}
+//exit(json_encode($headers).'---'.$url.'----'.$file);
+
+$data='';
+$query=$_SERVER['QUERY_STRING'];
+
+if($query=='view'){
+    if(is_file($file)){ $data=file_get_contents($file); }
+}elseif($query=='clear'){
+    if(is_file($file)){ unlink($file); }
     exit('<script type="text/javascript">window.location.href="?view";</script>');
 }else{
-    $text = "\r\n\r\n";
-    $text .= date('Y-m-d H:i:s')."\r\n";
-    $text .= "-----------------------------------------------------------------------\r\n";
-    $text .= $_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING']."\r\n";
-    $text .= "-----------------------------------------------------------------------\r\n";
-    foreach($_SERVER as $key=>$val){ if(substr($key, 0, 5)=='HTTP_'){ $text .=  "【".$key."】=".$val."\r\n"; } }
-    $text .= "-----------------------------------------------------------------------\r\n";
-    $text .= file_get_contents('php://input')."\r\n";
-    $text .= "=======================================================================\r\n";
-    $file = fopen($file_path,"a");
-    fwrite($file, $text);
-    fclose($file);
-    $path_info = $_SERVER['PATH_INFO'];
-    exit($path_info?substr($path_info,1):"success");	
-}?>
+    $response='OK';
+    $text="\r\n\r\n";
+    $text.=date('Y-m-d H:i:s')."\r\n";
+    $text.="-----【URL】------------------------------------------------------------------\r\n";
+    $text.=$_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING']."\r\n";
+    if($headers){
+        $text.="-----【HEADER】------------------------------------------------------------------\r\n";
+        foreach($headers as $k){
+            $key=strtoupper('HTTP_'.$k);
+            if(isset($_SERVER[$key])){
+                $text.= $key." = ".$_SERVER[$key]."\r\n";
+            }
+        }
+    }
+    
+    $text.="-----【".$_SERVER['REQUEST_METHOD']."】------------------------------------------------------------------\r\n";
+    $content=file_get_contents('php://input');
+    $text.=$content."\r\n";
+    if($url){
+        $header=[];
+        foreach($headers as $k){
+            $key=strtoupper('HTTP_'.$k);
+            if(isset($_SERVER[$key])){
+                $header[]= strtoupper($k).":".$_SERVER[$key];
+            }
+        }
+        if(!$header){
+            $header[]='Content-Type:application/x-www-form-urlencoded';
+        }
+        $response=file_get_contents($url, false, stream_context_create(array(
+        	'http' => array(
+        		'method' => $_SERVER['REQUEST_METHOD'],
+        		'header'  => implode("\r\n",$header),
+        		'content' => $content
+        	),
+        	'ssl'=>array(
+        		'verify_peer'=>false,
+        		'verify_peer_name'=>false
+        	)
+        )));
+
+        $text.="-----【RESPONSE】------------------------------------------------------------------\r\n";
+        $text.=$response."\r\n";
+    }
+    $text.="=======================================================================\r\n";
+    $text.=@file_get_contents($file);
+    file_put_contents($file, $text);
+    exit($response);
+}
+?>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -32,13 +88,13 @@ if($queryString=='view'){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style type="text/css">
       body{font-size:14px;}
-      textarea{width:99%;height:500px;font-size:16px;}
+      textarea{width:99%;height:90vh;font-size:16px;}
     </style>
 </head>
 <body>
     <form>
         <a style="float:right" href="?clear">清空</a><a href="?view">首页</a>
-        <textarea><?php echo($contents); ?></textarea>
+        <textarea><?php echo($data); ?></textarea>
     </form>
 </body>
 </html>
