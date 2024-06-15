@@ -5,11 +5,12 @@ $headers=[];
 if($url){
     if(strpos($url,'/http:/')!==false || strpos($url,'/https:/')!==false){
         $headers=str_replace('/','',substr($url,0,strpos($url,'/http')));
-        $url=str_replace(':/','://',substr($url,strpos($url,'/http')+1));
+        $url=substr($url,strpos($url,'/http')+1);
+        if(strpos($url,'://')===false){ $url=str_replace(':/','://',$url); }
         $name=explode('/',$url)[2];
     }else{
         $headers=substr($url,1);
-        if(strpos($url,'/')!==false){$headers=substr($headers,0,strpos($url,'/'));}
+        if(strpos($headers,'/')!==false){$headers=substr($headers,0,strpos($headers,'/'));}
         $url='';
     }
     if($headers){
@@ -21,46 +22,40 @@ if($url){
 $file='./'.$name.'.txt';
 
 $data='';
-$query=$_SERVER['QUERY_STRING']??'';
+$query=$_GET;
 
-if($query=='view'){
-    $data=@file_get_contents($file);
-}elseif($query=='clear'){
+if(isset($query['view'])){
+    $data=is_file($file)?@file_get_contents($file):'';
+}elseif(isset($query['clear'])){
     @unlink($file);
     exit('<script type="text/javascript">window.location.href="?view";</script>');
 }else{
     $response=$name;
-    $text="\r\n\r\n";
-    $text.=date('Y-m-d H:i:s')."\r\n";
-    $text.="-----【URL】------------------------------------------------------------------\r\n";
-    $text.=$_SERVER['SCRIPT_NAME'].'?'.$query."\r\n";
-    if($headers){
-        $text.="-----【HEADER】------------------------------------------------------------------\r\n";
-        foreach($headers as $k){
-            $key=strtoupper('HTTP_'.$k);
-            if(isset($_SERVER[$key])){
-                $text.= $key." = ".$_SERVER[$key]."\r\n";
+    $header=[];
+    foreach($_SERVER as $key=>$val){
+        foreach($headers as $item){
+            if(str_replace('-','',strtoupper($key)) == str_replace('-','',strtoupper('HTTP_'.$item))){
+              $header[]=$key.":".$val; 
             }
         }
     }
-    
-    $text.="-----【".$_SERVER['REQUEST_METHOD']."】------------------------------------------------------------------\r\n";
+    $method=$_SERVER['REQUEST_METHOD'];
     $content=file_get_contents('php://input');
+        
+        
+    $text="\r\n\r\n";
+    $text.=date('Y-m-d H:i:s')."\r\n";
+    $text.="-----【URL】------------------------------------------------------------------\r\n";
+    $text.=$_SERVER['REQUEST_URI']."\r\n";
+    $text.="-----【HEADER】------------------------------------------------------------------\r\n";
+    $text.= implode("\r\n",$header)."\r\n";
+    $text.="-----【".$method."】------------------------------------------------------------------\r\n";
     $text.=$content."\r\n";
     if($url){
-        $header=[];
-        foreach($headers as $k){
-            $key=strtoupper('HTTP_'.$k);
-            if(isset($_SERVER[$key])){
-                $header[]= strtoupper($k).":".$_SERVER[$key];
-            }
-        }
-        if(!$header){
-            $header[]='Content-Type:application/x-www-form-urlencoded';
-        }
+        if(!in_array('Content-Type',$headers)){ $header[]='Content-Type:application/x-www-form-urlencoded'; }
         $response=file_get_contents($url, false, stream_context_create(array(
         	'http' => array(
-        		'method' => $_SERVER['REQUEST_METHOD'],
+        		'method' => $method,
         		'header'  => implode("\r\n",$header),
         		'content' => $content
         	),
@@ -74,7 +69,7 @@ if($query=='view'){
         $text.=$response."\r\n";
     }
     $text.="=======================================================================\r\n";
-    $text.=@file_get_contents($file);
+    $text.=is_file($file)?@file_get_contents($file):'';
     file_put_contents($file, $text);
     exit($response);
 }
