@@ -21,7 +21,7 @@ if($url){
 $file='./'.$name.'.txt';
 
 $data='';
-$query=$_SERVER['QUERY_STRING'];
+$query=$_SERVER['QUERY_STRING']??'';
 
 if($query=='view'){
     $data=@file_get_contents($file);
@@ -33,7 +33,7 @@ if($query=='view'){
     $text="\r\n\r\n";
     $text.=date('Y-m-d H:i:s')."\r\n";
     $text.="-----【URL】------------------------------------------------------------------\r\n";
-    $text.=$_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING']."\r\n";
+    $text.=$_SERVER['SCRIPT_NAME'].'?'.$query."\r\n";
     if($headers){
         $text.="-----【HEADER】------------------------------------------------------------------\r\n";
         foreach($headers as $k){
