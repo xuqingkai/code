@@ -1,12 +1,12 @@
 <?php
-$file='./callback.txt';
+$name='callback';
 $url=$_SERVER['PATH_INFO'];
 $headers=[];
 if($url){
     if(strpos($url,'/http:/')!==false || strpos($url,'/https:/')!==false){
         $headers=str_replace('/','',substr($url,0,strpos($url,'/http')));
         $url=str_replace(':/','://',substr($url,strpos($url,'/http')+1));
-        $file='./'.explode('/',$url)[2].'.txt';
+        $name=explode('/',$url)[2];
     }else{
         $headers=substr($url,1);
         if(strpos($url,'/')!==false){$headers=substr($headers,0,strpos($url,'/'));}
@@ -18,15 +18,15 @@ if($url){
         $headers=[];
     }
 }
-//exit(json_encode($headers).'---'.$url.'----'.$file);
+$file='./'.$name.'.txt';
 
 $data='';
 $query=$_SERVER['QUERY_STRING'];
 
 if($query=='view'){
-    if(is_file($file)){ $data=file_get_contents($file); }
+    $data=@file_get_contents($file);
 }elseif($query=='clear'){
-    if(is_file($file)){ unlink($file); }
+    @unlink($file);
     exit('<script type="text/javascript">window.location.href="?view";</script>');
 }else{
     $response='OK';
