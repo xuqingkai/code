@@ -1,6 +1,6 @@
 <?php
 $name='callback';
-$url=$_SERVER['PATH_INFO'];
+$url=$_SERVER['PATH_INFO']??'';
 $headers=[];
 if($url){
     if(strpos($url,'/http:/')!==false || strpos($url,'/https:/')!==false){
