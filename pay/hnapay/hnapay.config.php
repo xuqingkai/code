@@ -25,7 +25,7 @@ $hnapay['weixin_public_key']=str_replace("\r",'',str_replace("\n",'',$hnapay['we
 //微信商户私钥
 $hnapay['weixin_private_key']='';
 $hnapay['weixin_private_key']=str_replace('-----BEGIN RSA PRIVATE KEY-----','',str_replace('-----END RSA PRIVATE KEY-----','',$hnapay['weixin_private_key']));
-$hnapay['weixin_private_key']=str_replace("\r",'',str_replace("n",'',$hnapay['weixin_private_key']));
+$hnapay['weixin_private_key']=str_replace("\r",'',str_replace("\n",'',$hnapay['weixin_private_key']));
 
 //支付宝报备编号 https://merchant.hnapay.com
 $hnapay['merchantId']='';
