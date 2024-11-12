@@ -1,4 +1,4 @@
-```
+
 
 CREATE TABLE IF NOT EXISTS "xqk_user" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -21,10 +21,7 @@ INSERT INTO "xqk_user" VALUES (4, '64648487.098f6bcd4621d373cade4e832627b4f6', '
 
 UPDATE "sqlite_sequence" SET seq = 4 WHERE name = 'xqk_user';
 
-```
 
-
-```
 CREATE TABLE IF NOT EXISTS "xqk_ip_log" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
 	"ip" TEXT,
@@ -35,4 +32,4 @@ CREATE TABLE IF NOT EXISTS "xqk_ip_log" (
 );
 INSERT INTO "xqk_ip_log" VALUES (1, '127.0.0.1', '本地', '1970-01-01', '1970-01-01 08:00:01', 1);
 UPDATE "sqlite_sequence" SET seq = 1 WHERE name = 'xqk_ip_log';
-```
+
