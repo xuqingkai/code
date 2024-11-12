@@ -1,5 +1,4 @@
-```
--- 表
+-- xqk_user
 CREATE TABLE IF NOT EXISTS `xqk_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(50) NOT NULL,
@@ -23,8 +22,7 @@ INSERT INTO `xqk_user` (`user_id`, `user_name`, `user_salt`, `password`, `nick_n
 ('64648486.ee11cbb19052e40b07aac0ca060c23ee', 'user', '9b2eea4b45bcdd5c3b342456bdff139d', '8ed11b05caf627ebefabf2aa6409d8bb', '用户', 0, 33, '357.44', '2023-05-17 15:38:46', '普通用户是最小的服务单元'),
 ('64648487.098f6bcd4621d373cade4e832627b4f6', 'test', '8607f985d1a84dc6c670673040dd9a56', 'd4aeff0f0f41e37b61d6f704d8ae3e32', '测试', 0, 22, '29.68', '2023-05-17 15:38:47', '测试账号');
 
-```
-```
+-- xqk_ip_log
 CREATE TABLE IF NOT EXISTS `xqk_ip_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
 	`ip` varchar(40) NOT NULL,
