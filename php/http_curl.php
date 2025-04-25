@@ -1,11 +1,17 @@
 <?php
 function http_curl($url,$body='',$header=array()){
+    if(!$headers){
+        $headers=array(
+            'User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0',
+            'Referer:'.substr($url,0,strpos($url,'/',10))
+        );
+    }
     $headers=array_merge($headers, array('Author'=>'xuqingkai'));
-    $request_headers=array(); foreach($headers as $key=>$val){ $request_headers[]=$key.':'.$val; }
+
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HEADER, true);//是否返回headers信息
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $request_headers);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($curl, CURLOPT_POST, strlen($body)>0);
     //curl_setopt($curl, CURLOPT_ENCODING,'gzip');
     curl_setopt($curl, CURLOPT_POSTFIELDS , $body);
