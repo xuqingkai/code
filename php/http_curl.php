@@ -1,6 +1,5 @@
 <?php
 function http_curl($url,$body='',$header=array()){
-    global $xuqingkai;
     $headers=array_merge($headers, array('Author'=>'xuqingkai'));
     $request_headers=array(); foreach($headers as $key=>$val){ $request_headers[]=$key.':'.$val; }
     $curl = curl_init($url);
