@@ -56,4 +56,4 @@ CREATE TABLE [xqk_callback](
     [contents] [nvarchar](max) NULL,
     CONSTRAINT [PK_xqk_callback_id] PRIMARY KEY CLUSTERED ([id] ASC)
 );
-
+INSERT INTO [xqk_callback] ([callback_key], [contents]) VALUES ('callback', N'回调结果');
