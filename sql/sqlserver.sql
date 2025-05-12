@@ -50,10 +50,5 @@ INSERT INTO [xqk_ip_log] ([ip], [address], [create_date], [create_datetime], [cr
 
 
 IF EXISTS (SELECT * FROM sys.objects WHERE name = 'xqk_callback') DROP TABLE xqk_callback;
-CREATE TABLE [xqk_callback](
-    [id] [int] IDENTITY(1,1) NOT NULL,
-    [callback_key] [nvarchar](50) NOT NULL,
-    [contents] [nvarchar](max) NULL,
-    CONSTRAINT [PK_xqk_callback_id] PRIMARY KEY CLUSTERED ([id] ASC)
-);
-INSERT INTO [xqk_callback] ([callback_key], [contents]) VALUES ('callback', N'回调结果');
+CREATE TABLE [xqk_callback]( [contents] [nvarchar](max) NULL);
+INSERT INTO [xqk_callback] ([contents]) VALUES (N'回调结果');
