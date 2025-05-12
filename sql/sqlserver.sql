@@ -48,3 +48,12 @@ CREATE TABLE [xqk_ip_log](
 INSERT INTO [xqk_ip_log] ([ip], [address], [create_date], [create_datetime], [create_timestamp]) VALUES ('127.0.0.1', N'本地', '1970-01-01', '1970-01-01 08:00:01', 1);
 
 
+
+IF EXISTS (SELECT * FROM sys.objects WHERE name = 'xqk_callback') DROP TABLE xqk_callback;
+CREATE TABLE [xqk_callback](
+    [id] [int] IDENTITY(1,1) NOT NULL,
+    [callback_key] [nvarchar](50) NOT NULL,
+    [contents] [nvarchar](max) NULL,
+    CONSTRAINT [PK_xqk_callback_id] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
